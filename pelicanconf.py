@@ -33,3 +33,16 @@ DEFAULT_PAGINATION = 10
 
 # Uncomment following line if you want document-relative URLs when developing
 #RELATIVE_URLS = True
+
+PLUGIN_PATHS = ['plugins']
+#PLUGINS = ['image']
+
+MARKDOWN = {
+    'extension_configs': {
+        'markdown.extensions.codehilite': {'css_class': 'highlight'},
+        'markdown.extensions.extra': {},
+        'markdown.extensions.meta': {},
+        'plugins.image': {},
+    },
+    'output_format': 'html5',
+}
