@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="chinese (simplified)">
+<head>
+        <meta charset="utf-8" />
+        <title>大潘的博客 - 码农</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">大潘的博客 </a></h1>
+                <nav><ul>
+                    <li><a href="/category/gao-jian.html">稿件</a></li>
+                    <li><a href="/category/guan-yu.html">关于</a></li>
+                    <li><a href="/category/lu-xing.html">旅行</a></li>
+                    <li class="active"><a href="/category/ma-nong.html">码农</a></li>
+                    <li><a href="/category/shu-mo.html">数模</a></li>
+                    <li><a href="/category/si-kao.html">思考</a></li>
+                    <li><a href="/category/yan-tu.html">岩土</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+
+            <aside id="featured" class="body">
+                <article>
+                    <h1 class="entry-title"><a href="/djangobu-shu-dao-apache2shang-de-keng.html">Django布署到Apache2上的坑</a></h1>
+<footer class="post-info">
+        <abbr class="published" title="2017-12-18T00:35:00+08:00">
+                Published: 周一 18 十二月 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/da-pan.html">大潘</a>
+        </address>
+<p>In <a href="/category/ma-nong.html">码农</a>.</p>
+
+</footer><!-- /.post-info --><h1>结论</h1>
+<p>所有的在Debug模式下搞定的东西，不要去django里面找Bug。新出现的Bug九成是Apache2带来的。</p>
+<h1>中文路径乱码的坑</h1>
+<p>中文路径乱码。<code>os.stat()</code>这是一个再标准不过的标准库的函数，Python的，跨平台兼容是出名的，但是这一个标准库函数还是出了问题，我开始在django里面各种调试，在django里面测得了<code>os.environ</code>变量中的<code>LANG</code>确实是<code>C</code>，然后在django里面设置<code>os.system('export LANG=C')</code>也并没有什么卵用。最后在apache在配置文件<code>envvars</code>文件里面改掉相应的配置项，解决问题。</p>
+<h1>文件权限的坑</h1>
+<p>文件权限各种出问题。apache中，对文件权限进行了一个新用户的设置，设置为<code>www-data</code>用户。然后就涉及到linux的各种权限问题。新手并不能很好的搞定这个问题，于是各种<code>chmod</code>，<code>chown</code>，整的一团糟。最后采取了一种很野蛮的方式，直接在apache的配置文件中<code>envvars</code>将apache2的用户名也改为了我自己的用户名也就是<code>wolf</code>，虽然可能会带来一些安全性的问题，但是作为我的个人网站，数据并没有太重要，就暂时先这么用了。问题解决。</p>
+<h1>心得体会</h1>
+<p>在接触一个新库的时候，还是应该看一下这个库的帮助文档，而不是仅仅在网上搜各种教程。教程所带来的理解太浅薄，很难解决带来的问题，往往会造成更大的困扰。如果今天早一点传帮助文档，可能问题早就解决了。</p>                </article>
+            </aside><!-- /#featured -->
+                <section id="content" class="body">
+                    <h1>Other articles</h1>
+                    <hr />
+                    <ol id="posts-list" class="hfeed">
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/css3pan-duan-heng-shu-ping.html" rel="bookmark"
+                           title="Permalink to css3判断横竖屏">css3判断横竖屏</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2017-12-11T23:38:00+08:00">
+                Published: 周一 11 十二月 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/da-pan.html">大潘</a>
+        </address>
+<p>In <a href="/category/ma-nong.html">码农</a>.</p>
+
+</footer><!-- /.post-info -->                
+                <a class="readmore" href="/css3pan-duan-heng-shu-ping.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/scrapywu-fa-shi-yong-warningmo-shi.html" rel="bookmark"
+                           title="Permalink to Scrapy无法使用WARNING模式">Scrapy无法使用WARNING模式</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2017-12-11T00:45:00+08:00">
+                Published: 周一 11 十二月 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/da-pan.html">大潘</a>
+        </address>
+<p>In <a href="/category/ma-nong.html">码农</a>.</p>
+
+</footer><!-- /.post-info -->                
+                <a class="readmore" href="/scrapywu-fa-shi-yong-warningmo-shi.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/mysqlde-keng.html" rel="bookmark"
+                           title="Permalink to MySQL的坑">MySQL的坑</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2017-10-29T08:10:00+08:00">
+                Published: 周日 29 十月 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/da-pan.html">大潘</a>
+        </address>
+<p>In <a href="/category/ma-nong.html">码农</a>.</p>
+
+</footer><!-- /.post-info -->                <p>记录一下MySQL的坑。</p>
+                <a class="readmore" href="/mysqlde-keng.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/jstu-cao.html" rel="bookmark"
+                           title="Permalink to JS吐槽">JS吐槽</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2017-09-26T18:10:00+08:00">
+                Published: 周二 26 九月 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/da-pan.html">大潘</a>
+        </address>
+<p>In <a href="/category/ma-nong.html">码农</a>.</p>
+
+</footer><!-- /.post-info -->                <p>屎一样的语言。</p>
+                <a class="readmore" href="/jstu-cao.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/markdownbian-ji-qi-zhi-dillinger.html" rel="bookmark"
+                           title="Permalink to Markdown编辑器之Dillinger">Markdown编辑器之Dillinger</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2017-09-25T17:00:00+08:00">
+                Published: 周一 25 九月 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/da-pan.html">大潘</a>
+        </address>
+<p>In <a href="/category/ma-nong.html">码农</a>.</p>
+
+</footer><!-- /.post-info -->                <p>下一个测试。</p>
+                <a class="readmore" href="/markdownbian-ji-qi-zhi-dillinger.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/markdownbian-ji-qi-zhi-github.html" rel="bookmark"
+                           title="Permalink to Markdown编辑器之Github">Markdown编辑器之Github</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2017-09-25T16:50:00+08:00">
+                Published: 周一 25 九月 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/da-pan.html">大潘</a>
+        </address>
+<p>In <a href="/category/ma-nong.html">码农</a>.</p>
+
+</footer><!-- /.post-info -->                <p>据说Github的编辑器本身就很好用？试试呗</p>
+                <a class="readmore" href="/markdownbian-ji-qi-zhi-github.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/markdownbian-ji-qi-zhi-prose.html" rel="bookmark"
+                           title="Permalink to Markdown编辑器之Prose">Markdown编辑器之Prose</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2017-09-25T16:37:00+08:00">
+                Published: 周一 25 九月 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/da-pan.html">大潘</a>
+        </address>
+<p>In <a href="/category/ma-nong.html">码农</a>.</p>
+
+</footer><!-- /.post-info -->                <h1>需求</h1>
+<p>就是想要一个可以在线编辑Gitee的Markdown编辑器，可惜国内发展实在是一般，小书匠倒是真的不错，就是用户登录还没做起来，估计再等一段时间就可以用了吧。</p>
+<h1>Prose体会</h1>
+<p>恩，没错，现在就是在用Prose编辑器敲文章。不错的编辑器，专门为了Gayhub而生的。</p>
+<p>需求对了的话，目标很明确的。</p>
+<p>直接采用Github的登录，但是权限要求的有点高啊，直接要获取所有仓库的权限啊。</p>
+<p>恩，反正我Github没有私有项目，没什么重要文件，随便访问吧。</p>
+<p>不过看起来还是很不爽</p>
+<h1>Bug</h1>
+<p>有个小Bug啊，就没法识别中文目录下的文件啊。</p>
+<p>打开中文目录之后呢，直接就是空的了。</p>
+<p>新建文章倒是没问题，可以新建，在右边直接打开最近使用的文章也可以，但总觉的不是那么太方便呀。</p>
+<p>还是想自己写一个基于Notepad++的插件，试一试吧。万一有时间做呢。</p>
+<p>没时间就算了。</p>
+                <a class="readmore" href="/markdownbian-ji-qi-zhi-prose.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/markdownbian-ji-qi-zhi-xiao-shu-jiang.html" rel="bookmark"
+                           title="Permalink to Markdown编辑器之小书匠">Markdown编辑器之小书匠</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2017-09-25T16:10:00+08:00">
+                Published: 周一 25 九月 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/da-pan.html">大潘</a>
+        </address>
+<p>In <a href="/category/ma-nong.html">码农</a>.</p>
+
+</footer><!-- /.post-info -->                <p>很良心的一款编辑器，能同步Gayhub，希望尽快支持Gitee。</p>
+                <a class="readmore" href="/markdownbian-ji-qi-zhi-xiao-shu-jiang.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/pelicanxin-hao-ji-zhi.html" rel="bookmark"
+                           title="Permalink to Pelican信号机制">Pelican信号机制</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2017-09-09T23:00:00+08:00">
+                Published: 周六 09 九月 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/da-pan.html">大潘</a>
+        </address>
+<p>In <a href="/category/ma-nong.html">码农</a>.</p>
+
+</footer><!-- /.post-info -->                <p>Pelican的信号机制测试并记录</p>
+                <a class="readmore" href="/pelicanxin-hao-ji-zhi.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+                </ol><!-- /#posts-list -->
+<p class="paginator">
+    Page 1 / 2
+        <a href="/category/ma-nong2.html">&raquo;</a>
+</p>
+                </section><!-- /#content -->
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://python.org/">Python.org</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>
