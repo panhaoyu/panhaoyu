@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="chinese (simplified)">
+<head>
+        <meta charset="utf-8" />
+        <title>backup</title>
+        <link rel="stylesheet" href="https://panhaoyu.github.io/theme/css/main.css" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="https://panhaoyu.github.io/">大潘的博客 </a></h1>
+                <nav><ul>
+                    <li><a href="https://panhaoyu.github.io/category/gao-jian.html">稿件</a></li>
+                    <li class="active"><a href="https://panhaoyu.github.io/category/guan-yu.html">关于</a></li>
+                    <li><a href="https://panhaoyu.github.io/category/lu-xing.html">旅行</a></li>
+                    <li><a href="https://panhaoyu.github.io/category/ma-nong.html">码农</a></li>
+                    <li><a href="https://panhaoyu.github.io/category/shu-mo.html">数模</a></li>
+                    <li><a href="https://panhaoyu.github.io/category/si-kao.html">思考</a></li>
+                    <li><a href="https://panhaoyu.github.io/category/yan-tu.html">岩土</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="https://panhaoyu.github.io/drafts/backup.html" rel="bookmark"
+           title="Permalink to backup">backup</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2017-10-09T11:30:00+08:00">
+                Published: 周一 09 十月 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="https://panhaoyu.github.io/author/da-pan.html">大潘</a>
+        </address>
+<p>In <a href="https://panhaoyu.github.io/category/guan-yu.html">关于</a>.</p>
+
+</footer><!-- /.post-info -->      <div class="highlight"><pre><span></span><span class="o">---</span>
+<span class="nx">title</span>: <span class="kt">文档标题</span>
+<span class="nx">date</span><span class="o">:</span> <span class="o">&lt;%</span>
+
+<span class="kd">function</span> <span class="nx">full</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">string</span> <span class="o">=</span> <span class="nb">String</span><span class="p">(</span><span class="kt">string</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="kt">string</span><span class="p">.</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="s1">&#39;0&#39;</span> <span class="o">+</span> <span class="kt">string</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="kt">string</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">time() {</span>
+    <span class="kd">let</span> <span class="nx">date</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">();</span>
+    <span class="kd">let</span> <span class="nx">year</span> <span class="o">=</span> <span class="nx">date</span><span class="p">.</span><span class="nx">getFullYear</span><span class="p">();</span>
+    <span class="kd">let</span> <span class="nx">month</span> <span class="o">=</span> <span class="nx">full</span><span class="p">(</span><span class="nx">date</span><span class="p">.</span><span class="nx">getMonth</span><span class="p">()</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="kd">let</span> <span class="nx">day</span> <span class="o">=</span> <span class="nx">full</span><span class="p">(</span><span class="nx">date</span><span class="p">.</span><span class="nx">getDate</span><span class="p">());</span>
+    <span class="kd">let</span> <span class="nx">hour</span> <span class="o">=</span> <span class="nx">full</span><span class="p">(</span><span class="nx">date</span><span class="p">.</span><span class="nx">getHours</span><span class="p">());</span>
+    <span class="kd">let</span> <span class="nx">minute</span> <span class="o">=</span> <span class="nx">full</span><span class="p">(</span><span class="nx">date</span><span class="p">.</span><span class="nx">getMinutes</span><span class="p">());</span>
+    <span class="k">return</span> <span class="sb">`</span><span class="si">${</span><span class="nx">year</span><span class="si">}</span><span class="sb">-</span><span class="si">${</span><span class="nx">month</span><span class="si">}</span><span class="sb">-</span><span class="si">${</span><span class="nx">day</span><span class="si">}</span><span class="sb"> </span><span class="si">${</span><span class="nx">hour</span><span class="si">}</span><span class="sb">:</span><span class="si">${</span><span class="nx">minute</span><span class="si">}</span><span class="sb">`</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nx">print</span><span class="p">(</span><span class="nx">time</span><span class="p">());</span>
+
+ <span class="o">%&gt;</span>
+<span class="nx">summary</span>: 
+<span class="kt">status</span><span class="o">:</span> <span class="nx">draft</span>
+<span class="o">---</span>
+
+<span class="err">文档正文</span>
+</pre></div>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://python.org/">Python.org</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

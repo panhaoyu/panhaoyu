@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="chinese (simplified)">
+<head>
+        <meta charset="utf-8" />
+        <title>Scrapy无法使用WARNING模式</title>
+        <link rel="stylesheet" href="https://panhaoyu.github.io/theme/css/main.css" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="https://panhaoyu.github.io/">大潘的博客 </a></h1>
+                <nav><ul>
+                    <li><a href="https://panhaoyu.github.io/category/gao-jian.html">稿件</a></li>
+                    <li><a href="https://panhaoyu.github.io/category/guan-yu.html">关于</a></li>
+                    <li><a href="https://panhaoyu.github.io/category/lu-xing.html">旅行</a></li>
+                    <li class="active"><a href="https://panhaoyu.github.io/category/ma-nong.html">码农</a></li>
+                    <li><a href="https://panhaoyu.github.io/category/shu-mo.html">数模</a></li>
+                    <li><a href="https://panhaoyu.github.io/category/si-kao.html">思考</a></li>
+                    <li><a href="https://panhaoyu.github.io/category/yan-tu.html">岩土</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="https://panhaoyu.github.io/scrapywu-fa-shi-yong-warningmo-shi.html" rel="bookmark"
+           title="Permalink to Scrapy无法使用WARNING模式">Scrapy无法使用WARNING模式</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2017-12-11T00:45:00+08:00">
+                Published: 周一 11 十二月 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="https://panhaoyu.github.io/author/da-pan.html">大潘</a>
+        </address>
+<p>In <a href="https://panhaoyu.github.io/category/ma-nong.html">码农</a>.</p>
+
+</footer><!-- /.post-info -->      <p>先放一下Scrapy的报错信息。</p>
+<div class="highlight"><pre><span></span><span class="p">:</span><span class="mi">0</span><span class="p">:</span> <span class="ne">UserWarning</span><span class="p">:</span> <span class="n">You</span> <span class="n">do</span> <span class="ow">not</span> <span class="n">have</span> <span class="n">a</span> <span class="n">working</span> <span class="n">installation</span> <span class="n">of</span> <span class="n">the</span> <span class="n">service_identity</span> <span class="n">module</span><span class="p">:</span> <span class="s1">&#39;cannot import name &#39;</span><span class="n">opentype</span><span class="s1">&#39;&#39;</span><span class="o">.</span>  <span class="n">Please</span> <span class="n">install</span> <span class="n">it</span> <span class="kn">from</span> <span class="o">&lt;</span><span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">pypi</span><span class="o">.</span><span class="n">python</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">pypi</span><span class="o">/</span><span class="n">service_identity</span><span class="o">&gt;</span> <span class="ow">and</span> <span class="n">make</span> <span class="n">sure</span> <span class="nb">all</span> <span class="n">of</span> <span class="n">its</span> <span class="n">dependencies</span> <span class="n">are</span> <span class="n">satisfied</span><span class="o">.</span>  <span class="n">Without</span> <span class="n">the</span> <span class="n">service_identity</span> <span class="n">module</span><span class="p">,</span> <span class="n">Twisted</span> <span class="n">can</span> <span class="n">perform</span> <span class="n">only</span> <span class="n">rudimentary</span> <span class="n">TLS</span> <span class="n">client</span> <span class="n">hostname</span> <span class="n">verification</span><span class="o">.</span>  <span class="n">Many</span> <span class="n">valid</span> <span class="n">certificate</span><span class="o">/</span><span class="n">hostname</span> <span class="n">mappings</span> <span class="n">may</span> <span class="n">be</span> <span class="n">rejected</span><span class="o">.</span>
+</pre></div>
+
+
+<p>说的很明确，请安装<code>service_identity</code>模块。</p>
+<p>可是呢，<code>service_identity</code>模块明明是安装了的。</p>
+<p>再留意到报错信息中的一句话，请确保<code>service_identity</code>中的所有依赖已安装。</p>
+<p>上pypi翻文档，文档中提到了这么四个依赖：</p>
+<div class="highlight"><pre><span></span>attrs
+pyOpenSSL &gt;= 0.14 (0.12 and 0.13 may work but are not part of CI anymore)
+pyasn1
+pyasn1-modules
+</pre></div>
+
+
+<p>一个一个地<code>pip install</code>一下，发现<code>pyasn1-modules</code>没装。</p>
+<p>这就尴尬了哦，不知道pypi的包管理机制是什么样，有时间学一下。</p>
+<p>装好，<code>scrapy crawl ctrip --loglevel=WARNING</code>，成功，不报错。</p>
+<p>没错，就是想爬一下特价机票。</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://python.org/">Python.org</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>
