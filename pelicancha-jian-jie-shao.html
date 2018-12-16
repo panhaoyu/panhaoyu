@@ -1,42 +1,68 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="chinese (simplified)">
+
 <head>
-        <meta charset="utf-8" />
-        <title>Pelican插件介绍</title>
-        <link rel="stylesheet" href="https://panhaoyu.github.io/theme/css/main.css" />
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>  Pelican插件介绍 | 大潘的博客
+</title>
+  <link rel="canonical" href="https://panhaoyu.github.io/pelicancha-jian-jie-shao.html">
+
+
+  <link rel="stylesheet" href="https://panhaoyu.github.io/theme/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://panhaoyu.github.io/theme/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://panhaoyu.github.io/theme/css/pygments/default.min.css">
+  <link rel="stylesheet" href="https://panhaoyu.github.io/theme/css/theme.css">
+
+  
+  <meta name="description" content="译注 本文是pelican-plugins仓库中Readme文档的翻译. 引言 Pelican从3.0版本开始支持插件.插件允许您在不直接修改源代码的情况下来改动pelican的行为.从pelican3.2开始,所有的插件都被移动到了这个仓库中,所以,如果您想为pelican安装插件的话,来这里就够了. 怎样安装插件 最简单的插件安装方法就是clone这个仓库: git clone --recursive https://github.com/getpelican/pelican-plugins 然后在pelican的设置文件中添加插件的路径,就可以启用插件了: PLUGIN_PATHS = ['path/to/pelican-plugins'] PLUGINS = ['assets', 'sitemap', 'gravatar'] PLUGIN_PATHS可以是相对你的设置文件的相对路径,也可以是一个绝对路径. 如果你将插件放在了一个可以被python导入的路径中,那么你也可以省略掉PLUGIN_PAHTS选项. 或者,你也可以手动import插件模块,像这样: import my_plugin PLUGINS = [my_plugin …">
+
+
 </head>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="https://panhaoyu.github.io/">大潘的博客 </a></h1>
-                <nav><ul>
-                    <li><a href="https://panhaoyu.github.io/pages/about.html">About</a></li>
-                    <li><a href="https://panhaoyu.github.io/category/lu-xing.html">旅行</a></li>
-                    <li class="active"><a href="https://panhaoyu.github.io/category/ma-nong.html">码农</a></li>
-                    <li><a href="https://panhaoyu.github.io/category/si-kao.html">思考</a></li>
-                    <li><a href="https://panhaoyu.github.io/category/yan-tu.html">岩土</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
-<section id="content" class="body">
-  <article>
+<body>
+  <header class="header">
+    <div class="container">
+<div class="row">
+  <div class="col-sm-12">
+    <h1 class="title"><a href="https://panhaoyu.github.io/">大潘的博客</a></h1>
+      <ul class="list-inline">
+          <li class="list-inline-item"><a href="http://getpelican.com/" target="_blank">Pelican</a></li>
+          <li class="list-inline-item"><a href="http://python.org/" target="_blank">Python.org</a></li>
+          <li class="list-inline-item"><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
+          <li class="list-inline-item"><a href="#" target="_blank">You can modify those links in your config file</a></li>
+              <li class="list-inline-item text-muted">|</li>
+            <li class="list-inline-item"><a href="https://panhaoyu.github.io/pages/about.html">About</a></li>
+      </ul>
+  </div>
+</div>    </div>
+  </header>
+
+  <div class="main">
+    <div class="container">
+      <h1>  Pelican插件介绍
+</h1>
+      <hr>
+  <article class="article">
     <header>
-      <h1 class="entry-title">
-        <a href="https://panhaoyu.github.io/pelicancha-jian-jie-shao.html" rel="bookmark"
-           title="Permalink to Pelican插件介绍">Pelican插件介绍</a></h1>
+      <ul class="list-inline">
+        <li class="list-inline-item text-muted" title="2017-06-21T12:20:00+08:00">
+          <i class="fa fa-clock-o"></i>
+          周三 21 六月 2017
+        </li>
+        <li class="list-inline-item">
+          <i class="fa fa-folder-open-o"></i>
+          <a href="https://panhaoyu.github.io/category/ma-nong.html">码农</a>
+        </li>
+          <li class="list-inline-item">
+            <i class="fa fa-user-o"></i>
+              <a href="https://panhaoyu.github.io/author/da-pan.html">大潘</a>          </li>
+      </ul>
     </header>
-
-    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2017-06-21T12:20:00+08:00">
-                Published: 周三 21 六月 2017
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="https://panhaoyu.github.io/author/da-pan.html">大潘</a>
-        </address>
-<p>In <a href="https://panhaoyu.github.io/category/ma-nong.html">码农</a>.</p>
-
-</footer><!-- /.post-info -->      <h1>译注</h1>
+    <div class="content">
+      <h1>译注</h1>
 <p>本文是<a href="https://github.com/getpelican/pelican-plugins">pelican-plugins仓库</a>中Readme文档的翻译.</p>
 <h1>引言</h1>
 <p>Pelican从3.0版本开始支持插件.插件允许您在不直接修改源代码的情况下来改动pelican的行为.从pelican3.2开始,所有的插件都被移动到了这个仓库中,所以,如果您想为pelican安装插件的话,来这里就够了.</p>
@@ -543,37 +569,25 @@ PLUGINS = [&#39;assets&#39;, &#39;sitemap&#39;, &#39;gravatar&#39;]
 <p>参考插件文件夹中的<code>readme</code>文件来获取插件的详细信息.</p>
 <h1>贡献一个插件</h1>
 <p>请参考<code>Contributing</code>文件来获取更多信息.</p>
-    </div><!-- /.entry-content -->
-
+    </div>
   </article>
-</section>
-        <section id="extras" class="body">
-                <div class="blogroll">
-                        <h2>links</h2>
-                        <ul>
-                            <li><a href="http://getpelican.com/">Pelican</a></li>
-                            <li><a href="http://python.org/">Python.org</a></li>
-                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-                            <li><a href="#">You can modify those links in your config file</a></li>
-                        </ul>
-                </div><!-- /.blogroll -->
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
+    </div>
+  </div>
 
-                            <li><a href="#">You can add links in your config file</a></li>
-                            <li><a href="#">Another social link</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
-
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
-
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
-
+  <footer class="footer">
+    <div class="container">
+<div class="row">
+  <ul class="col-sm-6 list-inline">
+      <li class="list-inline-item"><a href="https://panhaoyu.github.io/authors.html">Authors</a></li>
+    <li class="list-inline-item"><a href="https://panhaoyu.github.io/archives.html">Archives</a></li>
+    <li class="list-inline-item"><a href="https://panhaoyu.github.io/categories.html">Categories</a></li>
+  </ul>
+  <p class="col-sm-6 text-sm-right text-muted">
+    Generated by <a href="https://github.com/getpelican/pelican" target="_blank">Pelican</a>
+    / <a href="https://github.com/nairobilug/pelican-alchemy" target="_blank">&#x2728;</a>
+  </p>
+</div>    </div>
+  </footer>
 </body>
+
 </html>

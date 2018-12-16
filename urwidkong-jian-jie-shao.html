@@ -1,42 +1,68 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="chinese (simplified)">
+
 <head>
-        <meta charset="utf-8" />
-        <title>urwid控件介绍</title>
-        <link rel="stylesheet" href="https://panhaoyu.github.io/theme/css/main.css" />
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>  urwid控件介绍 | 大潘的博客
+</title>
+  <link rel="canonical" href="https://panhaoyu.github.io/urwidkong-jian-jie-shao.html">
+
+
+  <link rel="stylesheet" href="https://panhaoyu.github.io/theme/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://panhaoyu.github.io/theme/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://panhaoyu.github.io/theme/css/pygments/default.min.css">
+  <link rel="stylesheet" href="https://panhaoyu.github.io/theme/css/theme.css">
+
+  
+  <meta name="description" content="控件基类 Widget WidgetWrap WidgetDecoration WidgetContainerMixin 基本控件 Text 用法:Text(markup, align='left', wrap='space', layout=None) 一个水平的大小可变的文本控件. 参数: markup,Text Markup,文本内容. align,对齐方式,通常为left,center或者right wrap,打包方式,通常为space,any或者clip layout,文本排版,默认是一个共享的StandardTextLayout实例 Edit IntEdit Button 用法:Button(label, on_press=None, user_data …">
+
+
 </head>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="https://panhaoyu.github.io/">大潘的博客 </a></h1>
-                <nav><ul>
-                    <li><a href="https://panhaoyu.github.io/pages/about.html">About</a></li>
-                    <li><a href="https://panhaoyu.github.io/category/lu-xing.html">旅行</a></li>
-                    <li class="active"><a href="https://panhaoyu.github.io/category/ma-nong.html">码农</a></li>
-                    <li><a href="https://panhaoyu.github.io/category/si-kao.html">思考</a></li>
-                    <li><a href="https://panhaoyu.github.io/category/yan-tu.html">岩土</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
-<section id="content" class="body">
-  <article>
+<body>
+  <header class="header">
+    <div class="container">
+<div class="row">
+  <div class="col-sm-12">
+    <h1 class="title"><a href="https://panhaoyu.github.io/">大潘的博客</a></h1>
+      <ul class="list-inline">
+          <li class="list-inline-item"><a href="http://getpelican.com/" target="_blank">Pelican</a></li>
+          <li class="list-inline-item"><a href="http://python.org/" target="_blank">Python.org</a></li>
+          <li class="list-inline-item"><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
+          <li class="list-inline-item"><a href="#" target="_blank">You can modify those links in your config file</a></li>
+              <li class="list-inline-item text-muted">|</li>
+            <li class="list-inline-item"><a href="https://panhaoyu.github.io/pages/about.html">About</a></li>
+      </ul>
+  </div>
+</div>    </div>
+  </header>
+
+  <div class="main">
+    <div class="container">
+      <h1>  urwid控件介绍
+</h1>
+      <hr>
+  <article class="article">
     <header>
-      <h1 class="entry-title">
-        <a href="https://panhaoyu.github.io/urwidkong-jian-jie-shao.html" rel="bookmark"
-           title="Permalink to urwid控件介绍">urwid控件介绍</a></h1>
+      <ul class="list-inline">
+        <li class="list-inline-item text-muted" title="2017-06-22T23:30:00+08:00">
+          <i class="fa fa-clock-o"></i>
+          周四 22 六月 2017
+        </li>
+        <li class="list-inline-item">
+          <i class="fa fa-folder-open-o"></i>
+          <a href="https://panhaoyu.github.io/category/ma-nong.html">码农</a>
+        </li>
+          <li class="list-inline-item">
+            <i class="fa fa-user-o"></i>
+              <a href="https://panhaoyu.github.io/author/da-pan.html">大潘</a>          </li>
+      </ul>
     </header>
-
-    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2017-06-22T23:30:00+08:00">
-                Published: 周四 22 六月 2017
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="https://panhaoyu.github.io/author/da-pan.html">大潘</a>
-        </address>
-<p>In <a href="https://panhaoyu.github.io/category/ma-nong.html">码农</a>.</p>
-
-</footer><!-- /.post-info -->      <h1>控件基类</h1>
+    <div class="content">
+      <h1>控件基类</h1>
 <h2>Widget</h2>
 <h2>WidgetWrap</h2>
 <h2>WidgetDecoration</h2>
@@ -91,37 +117,25 @@
 <h2>SolidFill</h2>
 <h2>PopUpLauncher</h2>
 <h2>PopUpTarget</h2>
-    </div><!-- /.entry-content -->
-
+    </div>
   </article>
-</section>
-        <section id="extras" class="body">
-                <div class="blogroll">
-                        <h2>links</h2>
-                        <ul>
-                            <li><a href="http://getpelican.com/">Pelican</a></li>
-                            <li><a href="http://python.org/">Python.org</a></li>
-                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-                            <li><a href="#">You can modify those links in your config file</a></li>
-                        </ul>
-                </div><!-- /.blogroll -->
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
+    </div>
+  </div>
 
-                            <li><a href="#">You can add links in your config file</a></li>
-                            <li><a href="#">Another social link</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
-
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
-
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
-
+  <footer class="footer">
+    <div class="container">
+<div class="row">
+  <ul class="col-sm-6 list-inline">
+      <li class="list-inline-item"><a href="https://panhaoyu.github.io/authors.html">Authors</a></li>
+    <li class="list-inline-item"><a href="https://panhaoyu.github.io/archives.html">Archives</a></li>
+    <li class="list-inline-item"><a href="https://panhaoyu.github.io/categories.html">Categories</a></li>
+  </ul>
+  <p class="col-sm-6 text-sm-right text-muted">
+    Generated by <a href="https://github.com/getpelican/pelican" target="_blank">Pelican</a>
+    / <a href="https://github.com/nairobilug/pelican-alchemy" target="_blank">&#x2728;</a>
+  </p>
+</div>    </div>
+  </footer>
 </body>
+
 </html>
