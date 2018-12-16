@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="chinese (simplified)">
+<head>
+        <meta charset="utf-8" />
+        <title>Urwid教程翻译</title>
+        <link rel="stylesheet" href="https://panhaoyu.github.io/theme/css/main.css" />
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="https://panhaoyu.github.io/">大潘的博客 </a></h1>
+                <nav><ul>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="https://panhaoyu.github.io/drafts/urwidjiao-cheng-fan-yi.html" rel="bookmark"
+           title="Permalink to Urwid教程翻译">Urwid教程翻译</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2017-06-21T21:00:00+08:00">
+                Published: 周三 21 六月 2017
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="https://panhaoyu.github.io/author/da-pan.html">大潘</a>
+        </address>
+<p>In <a href="https://panhaoyu.github.io/category/ma-nong.html">码农</a>.</p>
+
+</footer><!-- /.post-info -->      <h1>一个简单的小程序</h1>
+<p>这个简单的小程序将会在屏幕的左上角显示一行<code>Hello World</code>.它没有设置退出的按键,所以您需要按下<code>Ctrl-C</code>来退出程序.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">urwid</span>
+
+<span class="n">txt</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span><span class="s1">&#39;Hello World&#39;</span><span class="p">)</span>
+<span class="n">fill</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">Filler</span><span class="p">(</span><span class="n">txt</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">)</span>
+<span class="n">loop</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">MainLoop</span><span class="p">(</span><span class="n">fill</span><span class="p">)</span>
+<span class="n">loop</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+
+
+<ul>
+<li>
+<p><strong>Text</strong>控件用于处理文本.如果文本很长,将会占用下一行.像这样的大小可变的控件被称为"流动控件".</p>
+</li>
+<li>
+<p><strong>Filler</strong>控件用于框住流动控件,这样他们才能显示在屏幕上.像这样的被限定了行列数的控件被称为"箱子控件".</p>
+</li>
+<li>
+<p><strong>MainLoop</strong>类用于显示我们的控件,并获取用户的输入.传递给MainLoop的控件被称为"顶级控件".顶级控件用来渲染整个屏幕,所以它必须是一个箱子控件.这个例子中,我们的这些控件并不能处理用户输入,因此我们需要按下<code>Ctrl-C</code>来退出程序.</p>
+</li>
+</ul>
+<h1>全局输入</h1>
+<p>这个程序最初会显示<code>Hello World</code>,然后它将会显示用户按下的按键.当用户按下Q的时候,程序退出.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">urwid</span>
+
+<span class="k">def</span> <span class="nf">show_or_exit</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="s1">&#39;qQ&#39;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">urwid</span><span class="o">.</span><span class="n">ExitMainLoop</span><span class="p">()</span>
+    <span class="n">txt</span><span class="o">.</span><span class="n">set_text</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+<span class="n">txt</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span><span class="s1">&#39;Hello World&#39;</span><span class="p">)</span>
+<span class="n">fill</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">Filler</span><span class="p">(</span><span class="n">txt</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">)</span>
+<span class="n">loop</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">MainLoop</span><span class="p">(</span><span class="n">fill</span><span class="p">,</span> <span class="n">unhandled_input</span><span class="o">=</span><span class="n">show_or_exit</span><span class="p">)</span>
+<span class="n">loop</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+
+
+<ul>
+<li>
+<p><strong>MainLoop</strong>类有一个可选参数,<em>unhandled_input</em>,它接受一个函数作为参数.每次当MainLoop检测到其他控件没有处理的按键时,由于这个示例中,并没有其他的控件来处理用户输入,所以用户每次按下一个按键都会调用<em>show_or_exit</em>函数.</p>
+</li>
+<li>
+<p><strong>ExitMainLoop</strong>异常用于彻底地退出MainLoop.run()函数.当您按下Q的时候,函数退出.所有其他的按键将会显示在Text控件上面.</p>
+</li>
+</ul>
+<h1>显示属性</h1>
+<p>这个程序将<code>Hello World</code>显示在屏幕中央.它用不同的属性来显示这些字符.这些是通过控制它上下左右的空格来实现的.按下Q可以退出程序.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">urwid</span>
+
+<span class="k">def</span> <span class="nf">show_or_exit</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="s1">&#39;qQ&#39;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">urwid</span><span class="o">.</span><span class="n">ExitMainLoop</span><span class="p">()</span>
+
+<span class="n">palette</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s1">&#39;banner&#39;</span><span class="p">,</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="s1">&#39;light gray&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;streak&#39;</span><span class="p">,</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="s1">&#39;dark red&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;bg&#39;</span><span class="p">,</span> <span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="s1">&#39;dark blue&#39;</span><span class="p">),]</span>
+
+<span class="n">txt</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">Text</span><span class="p">((</span><span class="s1">&#39;banner&#39;</span><span class="p">,</span> <span class="s1">&#39;Hello World&#39;</span><span class="p">),</span> <span class="n">align</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+<span class="n">map1</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">AttrMap</span><span class="p">(</span><span class="n">txt</span><span class="p">,</span> <span class="s1">&#39;streak&#39;</span><span class="p">)</span>
+<span class="n">fill</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">Filler</span><span class="p">(</span><span class="n">map1</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">)</span>
+<span class="n">map2</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">AttrMap</span><span class="p">(</span><span class="n">fill</span><span class="p">,</span> <span class="s1">&#39;bg&#39;</span><span class="p">)</span>
+<span class="n">loop</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">MainLoop</span><span class="p">(</span><span class="n">map2</span><span class="p">,</span> <span class="n">palette</span><span class="p">,</span> <span class="n">unhandled_input</span><span class="o">=</span><span class="n">show_or_exit</span><span class="p">)</span>
+<span class="n">loop</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+
+
+<ul>
+<li>
+<p>显示属性在palette(调色板)中定义.可用的前景色,背景色和设置选项在<code>前景背景设置</code>中有记录.调色板包含下面这几项:</p>
+</li>
+<li>
+<p>显示属性的名称,通常是一个字符串</p>
+</li>
+<li>
+<p>前景色和设置选项,针对16色模式(通常模式)</p>
+</li>
+<li>
+<p>背景色和设置选项,针对16色模式</p>
+</li>
+<li>
+<p>针对单色模式的设定(可选的)</p>
+</li>
+<li>
+<p>前景色和设置选项,针对88色和256色模式(可选的,见下面的例子)</p>
+</li>
+<li>
+<p>背景色和设置选项,针对88色和256色模式(可选的)</p>
+</li>
+<li>
+<p><strong>Text</strong>控件采用了<code>banner</code>显示属性.对于Text控件来说,设置显示属性的方式就是将原本的简单的文本字符串替换为<code>(显示属性</code>, <code>字符串)</code>元组.显示属性将会随着文本而流动.如果你想对一短文本的不同部分应用不同的属性的话,将多个元组放在一个列表中就可以了.</p>
+</li>
+<li>
+<p><strong>AttrMap</strong>控件用显示属性<code>streak</code>来包住文本控件.<code>AttrMap</code>控件将会把显示属性赋值给所有的字符,但是默认情况下,它并不会覆盖已有显示属性的控件.例如,本例中,文本控件已经有了显示属性,因此除了文本控件之外的位置会被赋值为新的颜色.</p>
+</li>
+<li>
+<p>第二个<strong>AttrMap</strong>控件用显示属性<code>bg</code>来包裹<code>Filter</code>控件.</p>
+</li>
+</ul>
+<p>运行这个程序,您可以很容易分辨出text控件和filter控件的区域.</p>
+<h1>高级颜色模式</h1>
+<p>这个程序同样在屏幕中央显示<code>Hello World</code>.它采用了256色的颜色模式来修饰文本,而这需要您的显示器支持256色的显示.按下Q可以退出程序.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">urwid</span>
+
+<span class="k">def</span> <span class="nf">exit_on_q</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="s1">&#39;qQ&#39;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">urwid</span><span class="o">.</span><span class="n">ExitMainLoop</span><span class="p">()</span>
+
+<span class="n">palette</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s1">&#39;banner&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;#ffa&#39;</span><span class="p">,</span> <span class="s1">&#39;#60d&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;streak&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;g50&#39;</span><span class="p">,</span> <span class="s1">&#39;#60a&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;inside&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;g38&#39;</span><span class="p">,</span> <span class="s1">&#39;#808&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;outside&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;g27&#39;</span><span class="p">,</span> <span class="s1">&#39;#a06&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;bg&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;g7&#39;</span><span class="p">,</span> <span class="s1">&#39;#d06&#39;</span><span class="p">),</span> <span class="p">]</span>
+
+<span class="n">placeholder</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">SolidFill</span><span class="p">()</span>
+<span class="n">loop</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">MainLoop</span><span class="p">(</span><span class="n">placeholder</span><span class="p">,</span> <span class="n">palette</span><span class="p">,</span> <span class="n">unhandled_input</span><span class="o">=</span><span class="n">exit_on_q</span><span class="p">)</span>
+<span class="n">loop</span><span class="o">.</span><span class="n">screen</span><span class="o">.</span><span class="n">set_terminal_properties</span><span class="p">(</span><span class="n">colors</span><span class="o">=</span><span class="mi">256</span><span class="p">)</span>
+<span class="n">loop</span><span class="o">.</span><span class="n">widget</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">AttrMap</span><span class="p">(</span><span class="n">placeholder</span><span class="p">,</span> <span class="s1">&#39;bg&#39;</span><span class="p">)</span>
+<span class="n">loop</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">original_widget</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">Filler</span><span class="p">(</span><span class="n">urwid</span><span class="o">.</span><span class="n">Pile</span><span class="p">([]))</span>
+
+<span class="n">div</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">Divider</span><span class="p">()</span>
+<span class="n">outside</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">AttrMap</span><span class="p">(</span><span class="n">div</span><span class="p">,</span> <span class="s1">&#39;outside&#39;</span><span class="p">)</span>
+<span class="n">inside</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">AttrMap</span><span class="p">(</span><span class="n">div</span><span class="p">,</span> <span class="s1">&#39;inside&#39;</span><span class="p">)</span>
+<span class="n">txt</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">Text</span><span class="p">((</span><span class="s1">&#39;banner&#39;</span><span class="p">,</span> <span class="s1">&#39;Hello World&#39;</span><span class="p">),</span> <span class="n">align</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+<span class="n">streak</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">AttrMap</span><span class="p">(</span><span class="n">txt</span><span class="p">,</span> <span class="s1">&#39;streak&#39;</span><span class="p">)</span>
+<span class="n">pile</span> <span class="o">=</span> <span class="n">loop</span><span class="o">.</span><span class="n">widget</span><span class="o">.</span><span class="n">base_widget</span> <span class="c1"># .base_widget skips the decorations</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="p">[</span><span class="n">outside</span><span class="p">,</span> <span class="n">inside</span><span class="p">,</span> <span class="n">streak</span><span class="p">,</span> <span class="n">inside</span><span class="p">,</span> <span class="n">outside</span><span class="p">]:</span>
+    <span class="n">pile</span><span class="o">.</span><span class="n">contents</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">item</span><span class="p">,</span> <span class="n">pile</span><span class="o">.</span><span class="n">options</span><span class="p">()))</span>
+
+<span class="n">loop</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+
+
+<p>这个调色板仅仅定义了高级颜色模式的前景色和背景色,因为仅仅用到了高级颜色模式.但是,一个真正的程序应该定义所有的颜色.可用的前景色,背景色和设置值可以在文档<code>前景和背景设置</code>中查阅.</p>
+<ul>
+<li><strong>MainLoop</strong>控件的后台会创建一个<strong>raw_display.screen</strong>对象来绘图.这个程序通过screen对象的<code>set_terminal_properties()</code>方法来将屏幕设置为256色.</li>
+</ul>
+<p>这个示例同时演示了怎样自上而下地布局控件的方法.有些时候,在需要的控件显示出来之前,我们可能需要一个<code>placeholder</code>控件占位.</p>
+<ul>
+<li>
+<p>我们通过<code>MainLoop.widget</code>属性来改变<code>MainLoop</code>的顶级控件.</p>
+</li>
+<li>
+<p><strong>装饰控件</strong>,例如<code>AttrMap</code>控件,可以通过改变它的<code>original_widget</code>属性来控制它所修饰的控件内容.</p>
+</li>
+<li>
+<p><strong>Divider</strong>控件用来创建空行,也是通过AttrMap来改变颜色.</p>
+</li>
+<li>
+<p><strong>容器控件</strong>例如<strong>Pile</strong>有一个<code>contents</code>属性,我们可以认为它是一个包含一系列<code>(widget, options)</code>元组的序列.<code>Pile.contents</code>支持通用的列表操作,例如通过<code>append()</code>来添加子控件.<code>Pile.options()</code>用来生成新的子控件的默认选项.</p>
+</li>
+</ul>
+<h1>问答</h1>
+<p>这个程序将会询问你的名字,并将结果显示在下面.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">urwid</span>
+
+<span class="k">def</span> <span class="nf">exit_on_q</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="s1">&#39;qQ&#39;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">urwid</span><span class="o">.</span><span class="n">ExitMainLoop</span><span class="p">()</span>
+
+<span class="n">palette</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s1">&#39;banner&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;#ffa&#39;</span><span class="p">,</span> <span class="s1">&#39;#60d&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;streak&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;g50&#39;</span><span class="p">,</span> <span class="s1">&#39;#60a&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;inside&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;g38&#39;</span><span class="p">,</span> <span class="s1">&#39;#808&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;outside&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;g27&#39;</span><span class="p">,</span> <span class="s1">&#39;#a06&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s1">&#39;bg&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="s1">&#39;g7&#39;</span><span class="p">,</span> <span class="s1">&#39;#d06&#39;</span><span class="p">),</span> <span class="p">]</span>
+
+<span class="k">class</span> <span class="nc">QuestionBox</span><span class="p">(</span><span class="n">urwid</span><span class="o">.</span><span class="n">Filler</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">keypress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="o">!=</span> <span class="s1">&#39;enter&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">urwid</span><span class="o">.</span><span class="n">Filler</span><span class="o">.</span><span class="n">keypress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">original_widget</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span>
+            <span class="s1">&#39;Nice to meet you,</span><span class="se">\n</span><span class="s1">{}.</span><span class="se">\n\n</span><span class="s1">Press Q to exit.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">edit</span><span class="o">.</span><span class="n">edit_text</span><span class="p">))</span>
+
+<span class="n">edit</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">Edit</span><span class="p">(</span><span class="s1">&#39;What is your name?</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">fill</span> <span class="o">=</span> <span class="n">QuestionBox</span><span class="p">(</span><span class="n">edit</span><span class="p">)</span>
+<span class="n">loop</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">MainLoop</span><span class="p">(</span><span class="n">fill</span><span class="p">,</span> <span class="n">unhandled_input</span><span class="o">=</span><span class="n">exit_on_q</span><span class="p">)</span>
+<span class="n">loop</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+
+
+<p><strong>Edit</strong>控件基于<code>Text</code>控件而实现,但是它可以接受输入的文本,并可以通过<code>Home</code>键,<code>END</code>键和<code>方向键</code>来修改你输入的文本.</p>
+<p>这里,我们用定制的<code>Filter</code>装饰控件的子类来修饰Text控件,并定义了一个新的<code>keypress()</code>函数.通过定制装饰控件或者容器控件来接受用户输入是一个很常用的Urwid应用的写法.这个模式要比将所有的按键都定义在一个<code>unhandled_input</code>函数中要易于维护得多.</p>
+<ul>
+<li>
+<p>在<code>QuestionBox.keypress()</code>函数中,除了<code>Enter</code>之外的所有按键都将会被传到默认的<code>Filler.Keypress()</code>函数中,而这个默认的函数将会把输入的字符传递到<code>Edit.keypress()</code>方法.</p>
+</li>
+<li>
+<p>注意,即使名字中包含<code>q</code>字符,也是可以输入到<code>Edit</code>控件中,而不是导致程序退出.这是因为,<code>Edit.keypress</code>函数处理了按键并返回<code>None</code>.更多信息请参见<code>Widget.keypress()</code>的文档.</p>
+</li>
+<li>
+<p>当输入<code>ENTER</code>的时候,子控件<code>original_widget</code>将会变更为一个<code>Text</code>控件.</p>
+</li>
+<li>
+<p><code>Text</code>控件不会处理任何按键输入,所以所有的按键输入都将会传递到<code>unhandled_input</code>函数<code>exit_on_q</code>,这时是可以通过q退出程序的.</p>
+</li>
+</ul>
+<h1>信号机制</h1>
+<p>这个程序将会询问您的名字,并在你输入名字的同时就显示你的名字.按下<code>DOWN</code>和<code>SPACE</code>或者<code>ENTER</code>来退出程序.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">urwid</span>
+
+<span class="k">def</span> <span class="nf">exit_on_q</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="s1">&#39;qQ&#39;</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="n">urwid</span><span class="o">.</span><span class="n">ExitMainLoop</span><span class="p">()</span>
+
+<span class="n">palette</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s1">&#39;I say&#39;</span><span class="p">,</span> <span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="s1">&#39;bold&#39;</span><span class="p">),</span> <span class="p">]</span>
+<span class="n">ask</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">Edit</span><span class="p">((</span><span class="s1">&#39;I say&#39;</span><span class="p">,</span> <span class="s1">&#39;What is your name?</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">))</span>
+<span class="n">reply</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="n">button</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="s1">&#39;Exit&#39;</span><span class="p">)</span>
+<span class="n">div</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">Divider</span><span class="p">()</span>
+<span class="n">pile</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">Pile</span><span class="p">([</span><span class="n">ask</span><span class="p">,</span> <span class="n">div</span><span class="p">,</span> <span class="n">reply</span><span class="p">,</span> <span class="n">div</span><span class="p">,</span> <span class="n">button</span><span class="p">])</span>
+<span class="n">top</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">Filler</span><span class="p">(</span><span class="n">pile</span><span class="p">,</span> <span class="n">valign</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">on_ask_change</span><span class="p">(</span><span class="n">edit</span><span class="p">,</span> <span class="n">new_edit_text</span><span class="p">):</span>
+    <span class="n">reply</span><span class="o">.</span><span class="n">set_text</span><span class="p">((</span><span class="s1">&#39;I say&#39;</span><span class="p">,</span> <span class="s1">&#39;Nice to meet you, {}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">new_edit_text</span><span class="p">)))</span>
+
+<span class="k">def</span> <span class="nf">on_exit_clicked</span><span class="p">(</span><span class="n">button</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="n">urwid</span><span class="o">.</span><span class="n">ExitMainLoop</span><span class="p">()</span>
+
+<span class="n">urwid</span><span class="o">.</span><span class="n">connect_signal</span><span class="p">(</span><span class="n">ask</span><span class="p">,</span> <span class="s1">&#39;change&#39;</span><span class="p">,</span> <span class="n">on_ask_change</span><span class="p">)</span>
+<span class="n">urwid</span><span class="o">.</span><span class="n">connect_signal</span><span class="p">(</span><span class="n">button</span><span class="p">,</span> <span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="n">on_exit_clicked</span><span class="p">)</span>
+
+<span class="n">urwid</span><span class="o">.</span><span class="n">MainLoop</span><span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">palette</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+
+
+<ul>
+<li>
+<p>就像之前一样,我们创建了一个<code>Edit</code>控件和一个<code>Text</code>控件.</p>
+</li>
+<li>
+<p><strong>connect_signal()</strong>函数用来绑定我们的<code>on_ask_change()</code>函数到<code>Edit</code>控件的<code>change</code>信号上.现在,每次<code>Edit</code>控件的变化都会调用<code>on_ask_change()</code>函数,并传入新的值.</p>
+</li>
+<li>
+<p>最后,我们将<code>on_exit_clicked()</code>函数绑定到<code>Exit</code>按键的<code>click</code>信号上.</p>
+</li>
+<li>
+<p><code>on_ask_change()</code>函数会在每次用户输入他们名字的同时,更新文本内容,而<code>on_exit_click()</code>函数用来退出.</p>
+</li>
+</ul>
+<h1>多个问题</h1>
+<p>这个程序要求您循环输入名字,然后会输出<code>Nice to meet you, (your name).</code>当您按下回车的时候,屏幕显示将会更新.空行直接回车就可以退出程序.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">urwid</span>
+
+<span class="k">def</span> <span class="nf">question</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">urwid</span><span class="o">.</span><span class="n">Pile</span><span class="p">([</span><span class="n">urwid</span><span class="o">.</span><span class="n">Edit</span><span class="p">((</span><span class="s1">&#39;I say&#39;</span><span class="p">,</span> <span class="s1">&#39;What is your name?</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">))])</span>
+
+<span class="k">def</span> <span class="nf">answer</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">urwid</span><span class="o">.</span><span class="n">Text</span><span class="p">((</span><span class="s1">&#39;I say&#39;</span><span class="p">,</span> <span class="s1">&#39;Nice to meet you, {}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">)))</span>
+
+<span class="k">class</span> <span class="nc">ConversationListBox</span><span class="p">(</span><span class="n">urwid</span><span class="o">.</span><span class="n">ListBox</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">body</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">SimpleFocusListWalker</span><span class="p">([</span><span class="n">question</span><span class="p">()])</span>
+        <span class="n">urwid</span><span class="o">.</span><span class="n">ListBox</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">body</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">keypress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="n">key</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">ListBox</span><span class="o">.</span><span class="n">keypress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="o">!=</span> <span class="s1">&#39;enter&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">key</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">focus</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">edit_text</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">name</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="n">urwid</span><span class="o">.</span><span class="n">ExitMainLoop</span><span class="p">()</span>
+        <span class="c1"># replace or add response</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">focus</span><span class="o">.</span><span class="n">contents</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">=</span> <span class="p">[(</span><span class="n">answer</span><span class="p">(</span><span class="n">name</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">focus</span><span class="o">.</span><span class="n">options</span><span class="p">())]</span>
+        <span class="n">pos</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">focus_position</span>
+        <span class="c1"># add a new question</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">body</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">question</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">focus_position</span> <span class="o">=</span> <span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span>
+
+<span class="n">palette</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s1">&#39;I say&#39;</span><span class="p">,</span> <span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="s1">&#39;bold&#39;</span><span class="p">),</span> <span class="p">]</span>
+<span class="n">urwid</span><span class="o">.</span><span class="n">MainLoop</span><span class="p">(</span><span class="n">ConversationListBox</span><span class="p">(),</span> <span class="n">palette</span><span class="p">)</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+
+
+<p><strong>ListBox</strong>控件让你可以在一系列的流动控件中垂直滚动.<code>UP</code>,<code>DOWN</code>,<code>PAGE UP</code>,<code>PAGE DOWN</code>几个按键可以改变当前焦点.<code>list walker</code>用于管理<code>ListBox Contents</code>,而最简单的<code>list walker</code>就是<code>SimpleFocusListWalker</code>.</p>
+<p><strong>SimpleFocusListWalker</strong>就像一个装有控件的普通python列表一样,不管什么时候你像里面添加或者删除元素,焦点都会自动改变.</p>
+<p>这里,我们通过子类继承并重写方法的方式定制<code>ListBox</code>的按键操作.</p>
+<ul>
+<li>
+<p><code>question()</code>函数用来生成用户交互控件.这里,我们返回了一个装有<code>Edit</code>控件的<code>Pile</code>控件.</p>
+</li>
+<li>
+<p>我们通过<code>ListBox.focus</code>取得焦点的<code>Pile</code>对象,然后采用标准<code>容器对象</code>的方法<code>[0]</code>来获得它的第一个子对象,也就是<code>Edit</code>,然后通过<code>Edit.edit_text</code>方法获得用户输入的文本.</p>
+</li>
+<li>
+<p>再来看程序的响应.我们可以将<code>Pile.contents</code>看作是一个<code>(控件, 选项)</code>的列表,我们通过为它的<code>contents[1:]</code>来进行赋值,以创建一个新的响应,或者替换掉已经存在的响应.我们通过<code>Pile.options()</code>来创建默认的选项.</p>
+</li>
+<li>
+<p>至于如何添加新的问题,我们可以认为,我们在<code>ListBox.body</code>处存放的变量,<code>SimpleFocusListWalker</code>,是一个装有控件的列表.我们对这个ListWalker调用<code>insert()</code>方法,然后更新焦点的位置到我们新创建的对象,就完成了.</p>
+</li>
+</ul>
+<h1>简单的菜单</h1>
+<p>我们可以通过一系列的<code>Button</code>控件来创建一个非常简单的菜单.这个程序让你选择一个选项,然后告诉你你选择了哪个选项.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">urwid</span>
+
+<span class="n">choices</span> <span class="o">=</span> <span class="sa">u</span><span class="s1">&#39;选项1 选项2 选项3 选项4 选项5 选项6&#39;</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">menu</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">choices</span><span class="p">):</span>
+    <span class="n">body</span> <span class="o">=</span> <span class="p">[</span><span class="n">urwid</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span><span class="n">title</span><span class="p">),</span> <span class="n">urwid</span><span class="o">.</span><span class="n">Divider</span><span class="p">()]</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">choices</span><span class="p">:</span>
+        <span class="n">button</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+        <span class="n">urwid</span><span class="o">.</span><span class="n">connect_signal</span><span class="p">(</span><span class="n">button</span><span class="p">,</span> <span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="n">item_chosen</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+        <span class="n">body</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">urwid</span><span class="o">.</span><span class="n">AttrMap</span><span class="p">(</span><span class="n">button</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">focus_map</span><span class="o">=</span><span class="s1">&#39;reversed&#39;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">urwid</span><span class="o">.</span><span class="n">ListBox</span><span class="p">(</span><span class="n">urwid</span><span class="o">.</span><span class="n">SimpleFocusListWalker</span><span class="p">(</span><span class="n">body</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">item_chosen</span><span class="p">(</span><span class="n">button</span><span class="p">,</span> <span class="n">choice</span><span class="p">):</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">Text</span><span class="p">([</span><span class="s1">&#39;You chose &#39;</span><span class="p">,</span> <span class="n">choice</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">])</span>
+    <span class="n">done</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="s1">&#39;Ok&#39;</span><span class="p">)</span>
+    <span class="n">urwid</span><span class="o">.</span><span class="n">connect_signal</span><span class="p">(</span><span class="n">done</span><span class="p">,</span> <span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="n">exit_program</span><span class="p">)</span>
+    <span class="n">main</span><span class="o">.</span><span class="n">original_widget</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">Filler</span><span class="p">(</span><span class="n">urwid</span><span class="o">.</span><span class="n">Pile</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">response</span><span class="p">,</span> <span class="n">urwid</span><span class="o">.</span><span class="n">AttrMap</span><span class="p">(</span><span class="n">done</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">focus_map</span><span class="o">=</span><span class="s1">&#39;reversed&#39;</span><span class="p">)]))</span>
+
+<span class="k">def</span> <span class="nf">exit_program</span><span class="p">(</span><span class="n">button</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="n">urwid</span><span class="o">.</span><span class="n">ExitMainLoop</span><span class="p">()</span>
+
+<span class="n">main</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">Padding</span><span class="p">(</span><span class="n">menu</span><span class="p">(</span><span class="s1">&#39;请选择&#39;</span><span class="p">,</span> <span class="n">choices</span><span class="p">),</span> <span class="n">left</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">top</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">Overlay</span><span class="p">(</span><span class="n">main</span><span class="p">,</span> <span class="n">urwid</span><span class="o">.</span><span class="n">SolidFill</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\N{MEDIUM SHADE}</span><span class="s1">&#39;</span><span class="p">),</span>
+    <span class="n">align</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;relative&#39;</span><span class="p">,</span> <span class="mi">60</span><span class="p">),</span>
+    <span class="n">valign</span><span class="o">=</span><span class="s1">&#39;middle&#39;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;relative&#39;</span><span class="p">,</span> <span class="mi">60</span><span class="p">),</span>
+    <span class="n">min_width</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">min_height</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+<span class="n">urwid</span><span class="o">.</span><span class="n">MainLoop</span><span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;reversed&#39;</span><span class="p">,</span> <span class="s1">&#39;standout&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)])</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+
+
+<ul>
+<li>
+<p><code>menu()</code>通过参数<code>title</code>和一列<code>Button</code>控件创建了一个<code>ListBox</code>控件.每个按钮的<code>item_chosen</code>都有它自己的信号,传递选项的名称.焦点下的按钮通过<code>AttrMap</code>装饰以赋予一个显示属性.</p>
+</li>
+<li>
+<p><code>item_choosen()</code>将显示的菜单替换为用户的选项.</p>
+</li>
+<li>
+<p><code>exit_program()</code>接受任意按键而退出.</p>
+</li>
+<li>
+<p>这个菜单通过<strong>Overlay</strong>来装饰,背景为<strong>SolidFill</strong>.<strong>Overlay</strong>定义了一个最小宽度,但是当用户的命令行足够宽的时候,是可以扩展到命令行宽度的60%的.</p>
+</li>
+</ul>
+<h1>多级菜单</h1>
+<p>嵌套的菜单的实现方式有很多,比如可以通过一些弹出新的菜单的按钮来实现.这个程序给了您一个嵌套的菜单,您可以按<code>ESC</code>来返回上一层.</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">urwid</span>
+
+<span class="k">def</span> <span class="nf">menu_button</span><span class="p">(</span><span class="n">caption</span><span class="p">,</span> <span class="n">callback</span><span class="p">):</span>
+    <span class="n">button</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="n">caption</span><span class="p">)</span>
+    <span class="n">urwid</span><span class="o">.</span><span class="n">connect_signal</span><span class="p">(</span><span class="n">button</span><span class="p">,</span> <span class="s1">&#39;click&#39;</span><span class="p">,</span> <span class="n">callback</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">urwid</span><span class="o">.</span><span class="n">AttrMap</span><span class="p">(</span><span class="n">button</span><span class="p">,</span> <span class="bp">None</span><span class="p">,</span> <span class="n">focus_map</span><span class="o">=</span><span class="s1">&#39;reversed&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">sub_menu</span><span class="p">(</span><span class="n">caption</span><span class="p">,</span> <span class="n">choices</span><span class="p">):</span>
+    <span class="n">contents</span> <span class="o">=</span> <span class="n">menu</span><span class="p">(</span><span class="n">caption</span><span class="p">,</span> <span class="n">choices</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">open_menu</span><span class="p">(</span><span class="n">button</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">top</span><span class="o">.</span><span class="n">open_box</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">menu_button</span><span class="p">([</span><span class="n">caption</span><span class="p">,</span> <span class="s1">&#39;...&#39;</span><span class="p">],</span> <span class="n">open_menu</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">menu</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">choices</span><span class="p">):</span>
+    <span class="n">body</span> <span class="o">=</span> <span class="p">[</span><span class="n">urwid</span><span class="o">.</span><span class="n">Text</span><span class="p">(</span><span class="n">title</span><span class="p">),</span> <span class="n">urwid</span><span class="o">.</span><span class="n">Divider</span><span class="p">()]</span>
+    <span class="n">body</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">choices</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">urwid</span><span class="o">.</span><span class="n">ListBox</span><span class="p">(</span><span class="n">urwid</span><span class="o">.</span><span class="n">SimpleFocusListWalker</span><span class="p">(</span><span class="n">body</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">item_chosen</span><span class="p">(</span><span class="n">button</span><span class="p">):</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">Text</span><span class="p">([</span><span class="s1">&#39;You chose &#39;</span><span class="p">,</span> <span class="n">button</span><span class="o">.</span><span class="n">label</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">])</span>
+    <span class="n">done</span> <span class="o">=</span> <span class="n">menu_button</span><span class="p">(</span><span class="s1">&#39;Ok&#39;</span><span class="p">,</span> <span class="n">exit_program</span><span class="p">)</span>
+    <span class="n">top</span><span class="o">.</span><span class="n">open_box</span><span class="p">(</span><span class="n">urwid</span><span class="o">.</span><span class="n">Filler</span><span class="p">(</span><span class="n">urwid</span><span class="o">.</span><span class="n">Pile</span><span class="p">([</span><span class="n">response</span><span class="p">,</span> <span class="n">done</span><span class="p">])))</span>
+
+<span class="k">def</span> <span class="nf">exit_program</span><span class="p">(</span><span class="n">button</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="n">urwid</span><span class="o">.</span><span class="n">ExitMainLoop</span><span class="p">()</span>
+
+<span class="n">menu_top</span> <span class="o">=</span> <span class="n">menu</span><span class="p">(</span><span class="s1">&#39;Main menu&#39;</span><span class="p">,</span> <span class="p">[</span>
+    <span class="n">sub_menu</span><span class="p">(</span><span class="s1">&#39;Applications&#39;</span><span class="p">,</span> <span class="p">[</span>
+        <span class="n">sub_menu</span><span class="p">(</span><span class="s1">&#39;Accessories&#39;</span><span class="p">,</span> <span class="p">[</span>
+            <span class="n">menu_button</span><span class="p">(</span><span class="s1">&#39;Text Editor&#39;</span><span class="p">,</span> <span class="n">item_chosen</span><span class="p">),</span>
+            <span class="n">menu_button</span><span class="p">(</span><span class="s1">&#39;Terminal&#39;</span><span class="p">,</span> <span class="n">item_chosen</span><span class="p">)])]),</span>
+    <span class="n">sub_menu</span><span class="p">(</span><span class="s1">&#39;System&#39;</span><span class="p">,</span> <span class="p">[</span>
+        <span class="n">sub_menu</span><span class="p">(</span><span class="s1">&#39;Preferences&#39;</span><span class="p">,</span> <span class="p">[</span>
+            <span class="n">menu_button</span><span class="p">(</span><span class="s1">&#39;Appearance&#39;</span><span class="p">,</span> <span class="n">item_chosen</span><span class="p">)]),</span>
+        <span class="n">menu_button</span><span class="p">(</span><span class="s1">&#39;Lock Screen&#39;</span><span class="p">,</span> <span class="n">item_chosen</span><span class="p">)])])</span>
+
+<span class="k">class</span> <span class="nc">CascadingBoxes</span><span class="p">(</span><span class="n">urwid</span><span class="o">.</span><span class="n">WidgetPlaceholder</span><span class="p">):</span>
+    <span class="n">max_box_levels</span> <span class="o">=</span> <span class="mi">4</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">box</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">urwid</span><span class="o">.</span><span class="n">SolidFill</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">box_level</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">open_box</span><span class="p">(</span><span class="n">box</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">open_box</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">box</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">original_widget</span> <span class="o">=</span> <span class="n">urwid</span><span class="o">.</span><span class="n">Overlay</span><span class="p">(</span><span class="n">urwid</span><span class="o">.</span><span class="n">LineBox</span><span class="p">(</span><span class="n">box</span><span class="p">),</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">original_widget</span><span class="p">,</span>
+            <span class="n">align</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;relative&#39;</span><span class="p">,</span> <span class="mi">80</span><span class="p">),</span>
+            <span class="n">valign</span><span class="o">=</span><span class="s1">&#39;middle&#39;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;relative&#39;</span><span class="p">,</span> <span class="mi">80</span><span class="p">),</span>
+            <span class="n">min_width</span><span class="o">=</span><span class="mi">24</span><span class="p">,</span> <span class="n">min_height</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span>
+            <span class="n">left</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">box_level</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">right</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_box_levels</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">box_level</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span>
+            <span class="n">top</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">box_level</span><span class="o">*</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">bottom</span><span class="o">=</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_box_levels</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">box_level</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">box_level</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">keypress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">size</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s1">&#39;esc&#39;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">box_level</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">original_widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">original_widget</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">box_level</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">keypress</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+
+<span class="n">top</span> <span class="o">=</span> <span class="n">CascadingBoxes</span><span class="p">(</span><span class="n">menu_top</span><span class="p">)</span>
+<span class="n">urwid</span><span class="o">.</span><span class="n">MainLoop</span><span class="p">(</span><span class="n">top</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;reversed&#39;</span><span class="p">,</span> <span class="s1">&#39;standout&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)])</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+
+
+<ul>
+<li>
+<p><code>menu_button()</code>返回一个<code>AttrMap</code>装饰的<code>Button</code>,并给它的<code>click</code>信号绑定了一个回调函数.子菜单和最后的的选择按钮都有回调函数.</p>
+</li>
+<li>
+<p><code>sub_menu()</code>是一个闭包,它创建了一个可以打开一个新的菜单的按钮.注意一下这个<code>text markup</code>的用法,它在每一个<code>menu_button</code>的<code>caption</code>也就是按键名后面都加上了<code>'...'</code>.</p>
+</li>
+<li>
+<p><code>menu()</code>是一个有标题有一系列控件的<code>ListBox</code>.</p>
+</li>
+<li>
+<p><code>item_chosen()</code>会显示用户的选择,和之前的例子差不多.</p>
+</li>
+<li>
+<p><code>menu_top()</code>是顶级菜单,它的所有子菜单和选项都都是通过上面的函数来构建的.</p>
+</li>
+</ul>
+<p>这个例子介绍了<strong>WidgetPlaceholder</strong>控件.<code>WidgetPlaceholder</code>控件是一个<code>装饰控件</code>,它不会对它所装饰的控件做任何事情.如果你需要一个简单的方式来重新布局一个控件,或者像这个例子一样,作为一个控件的基类来布局它的内容.</p>
+<ul>
+<li>
+<p><code>CascadingBoxes</code>是从<code>WidgetPlaceholder</code>继承而来的一个新的控件.它提供了一个<code>open_box()</code>方法,用来在顶层显示一个箱子控件.它通过<code>Overlay</code>和<code>LineBox</code>来显示.每个箱子都会相对于前一个箱子有一些移动.</p>
+</li>
+<li>
+<p><code>CascadingBoxes.keypress()</code>拦截了<code>ESC</code>键,用以删除当前的箱子对象,并显示前一个对象.这种方式使得用户可以返回上级菜单.</p>
+</li>
+</ul>
+<h1>水平菜单</h1>
+<p>暂时不打算学习.</p>
+<h1>冒险游戏</h1>
+<p>暂时不打算学习.</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>links</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://python.org/">Python.org</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>
