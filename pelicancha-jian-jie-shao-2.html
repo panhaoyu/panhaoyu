@@ -38,7 +38,6 @@
             <li class="list-inline-item"><a href="https://panhaoyu.github.io/category/lu-xing.html">旅行</a></li>
             <li class="list-inline-item"><a href="https://panhaoyu.github.io/category/ma-nong.html">码农</a></li>
             <li class="list-inline-item"><a href="https://panhaoyu.github.io/category/si-kao.html">思考</a></li>
-            <li class="list-inline-item"><a href="https://panhaoyu.github.io/category/yan-tu.html">岩土</a></li>
             <li class="list-inline-item"><a href="https://panhaoyu.github.io/pages/guan-yu.html">关于</a></li>
       </ul>
   </div>
@@ -64,7 +63,523 @@
       </ul>
     </header>
     <div class="content">
-      
+      <p>从Pelican3.0开始，Pelican支持插件。
+插件可以用来在不修改Pelican核心功能的前提下，为Pelican添加新功能。
+从3.2开始，所有的插件都被迁至这个仓库。</p>
+<table>
+<thead>
+<tr>
+<th>插件</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ace Editor</td>
+<td>Replace default <strong><code></strong> by an Ace__ code editor with settings configure on pelicanconf.py.</td>
+</tr>
+<tr>
+<td>Always modified</td>
+<td>Copy created date metadata into modified date for easy "latest updates" indexes</td>
+</tr>
+<tr>
+<td>AsciiDoc reader</td>
+<td>Use AsciiDoc to write your posts.</td>
+</tr>
+<tr>
+<td>Asset management</td>
+<td>通过Webassets模块管理CSS和JS等资源</td>
+</tr>
+<tr>
+<td>Auto Pages</td>
+<td>Generate custom content for generated Author, Category, and Tag pages (e.g. author biography)</td>
+</tr>
+<tr>
+<td>Backref Translate</td>
+<td>Add a new attribute (<code>is_translation_of</code>) to every article/page (which is a translation) pointing back to the original article/page which is being translated</td>
+</tr>
+<tr>
+<td>Better code line numbers</td>
+<td>Allow code blocks with line numbers to wrap</td>
+</tr>
+<tr>
+<td>Better code samples</td>
+<td>Wraps <code>table</code> blocks with <code>div &gt; .hilitewrapper &gt; .codehilitetable</code> class attribute, allowing for scrollable code blocks.</td>
+</tr>
+<tr>
+<td>Better figures/samples</td>
+<td>Adds a <code>style="width: ???px; height: auto;"</code> attribute to any <code>&lt;img&gt;</code> tags in the content</td>
+</tr>
+<tr>
+<td>bootstrap-rst</td>
+<td>Provides most (though not all) of Bootstrap's features as rst directives</td>
+</tr>
+<tr>
+<td>bootstrapify</td>
+<td>自动添加bootstraps的默认class到你的内容</td>
+</tr>
+<tr>
+<td>Category Order</td>
+<td>通过分类内的文章数量对分类（和标签）进行排序</td>
+</tr>
+<tr>
+<td>CJK auto spacing</td>
+<td>在中/日/韩文字和英文单词之间添加空格</td>
+</tr>
+<tr>
+<td>Clean summary</td>
+<td>Cleans your summary of excess images</td>
+</tr>
+<tr>
+<td>Code include</td>
+<td>在rst的代码中添加Pygments高亮</td>
+</tr>
+<tr>
+<td>Collate content</td>
+<td>Makes categories of content available to the template as lists through a <code>collations</code> attribute</td>
+</tr>
+<tr>
+<td>Creole reader</td>
+<td>Allows you to write your posts using the wikicreole syntax</td>
+</tr>
+<tr>
+<td>Custom article URLs</td>
+<td>自定义不同分类下的文章的链接</td>
+</tr>
+<tr>
+<td>CTags generator</td>
+<td>Generates a "tags" file following the CTags in the "content/" directory, to provide autocompletion for code editors that support it.</td>
+</tr>
+<tr>
+<td>Dateish</td>
+<td>Treat arbitrary metadata fields as datetime objects</td>
+</tr>
+<tr>
+<td>Dead Links</td>
+<td>管理死链（站点不可用、403、404）</td>
+</tr>
+<tr>
+<td>Disqus static comments</td>
+<td>Adds a disqus_comments property to all articles. Comments are fetched at generation time using disqus API</td>
+</tr>
+<tr>
+<td>Encrypt content</td>
+<td>Password protect pages and articles</td>
+</tr>
+<tr>
+<td>Events</td>
+<td>Add event start, duration, and location info to post metadata to generate an iCalendar file</td>
+</tr>
+<tr>
+<td>Extract table of content</td>
+<td>从<code>article.content</code>生成目录</td>
+</tr>
+<tr>
+<td>Figure References</td>
+<td>Provides a system to number and references figures</td>
+</tr>
+<tr>
+<td>Filetime from Git</td>
+<td>通过Git提交来判断博文日期</td>
+</tr>
+<tr>
+<td>Filetime from Hg</td>
+<td>Uses Mercurial commit to determine page date</td>
+</tr>
+<tr>
+<td>Footer Insert</td>
+<td>在每篇文章最后添加标准的脚注（作者信息）</td>
+</tr>
+<tr>
+<td>GA Page View</td>
+<td>Display Google Analytics page views on individual articles and pages</td>
+</tr>
+<tr>
+<td>Gallery</td>
+<td>使文章包含一个图册</td>
+</tr>
+<tr>
+<td>Gist directive</td>
+<td>This plugin adds a <code>gist</code> reStructuredText directive.</td>
+</tr>
+<tr>
+<td>GitHub wiki</td>
+<td>Converts a flat github wiki into a structured read only wiki on your site</td>
+</tr>
+<tr>
+<td>GitHub activity</td>
+<td>在模版端，你只需要遍历<code>github_activity</code>变量</td>
+</tr>
+<tr>
+<td>Global license</td>
+<td>Allows you to define a <code>LICENSE</code> setting and adds the contents of that license variable to the article's context</td>
+</tr>
+<tr>
+<td>Glossary</td>
+<td>Adds a variable containing definitions extracted from definition lists in articles and pages. This variable is visible to all page templates.</td>
+</tr>
+<tr>
+<td>Goodreads activity</td>
+<td>Lists books from your Goodreads shelves</td>
+</tr>
+<tr>
+<td>GooglePlus comments</td>
+<td>Adds GooglePlus comments to Pelican</td>
+</tr>
+<tr>
+<td>Gravatar</td>
+<td>Assigns the <code>author_gravatar</code> variable to the Gravatar URL and makes the variable available within the article's context</td>
+</tr>
+<tr>
+<td>Gzip cache</td>
+<td>Enables certain web servers (e.g., Nginx) to use a static cache of gzip-compressed files to prevent the server from compressing files during an HTTP call</td>
+</tr>
+<tr>
+<td>Headerid</td>
+<td>This plugin adds an anchor to each heading so you can deeplink to headers in reStructuredText articles.</td>
+</tr>
+<tr>
+<td>HTML entities</td>
+<td>Allows you to enter HTML entities such as &copy;, &lt;, &#149; inline in a RST document</td>
+</tr>
+<tr>
+<td>HTML tags for rST</td>
+<td>Allows you to use HTML tags from within reST documents</td>
+</tr>
+<tr>
+<td>I18N Sub-sites</td>
+<td>Extends the translations functionality by creating internationalized sub-sites for the default site</td>
+</tr>
+<tr>
+<td>ical</td>
+<td>Looks for and parses an <code>.ics</code> file if it is defined in a given page's <code>calendar</code> metadata.</td>
+</tr>
+<tr>
+<td>Image Process</td>
+<td>通过图片的class来识别并处理图片</td>
+</tr>
+<tr>
+<td>Interlinks</td>
+<td>简化常用的URL</td>
+</tr>
+<tr>
+<td>Jinja2 Content</td>
+<td>Allows the use of Jinja2 template code in articles, including <code>include</code> and <code>import</code> statements. Replacement for pelican-jinja2content.</td>
+</tr>
+<tr>
+<td>JPEG Reader</td>
+<td>基于博文的JPEG元数据创建图集页面</td>
+</tr>
+<tr>
+<td>Just table</td>
+<td>Allows you to easily create and manage tables. You can embed the tables into posts with a simple way.</td>
+</tr>
+<tr>
+<td>Libravatar</td>
+<td>Allows inclusion of user profile pictures from libravatar.org</td>
+</tr>
+<tr>
+<td>Link Class</td>
+<td>Allows the insertion of class attributes into generated <a> elements (Markdown only)</td>
+</tr>
+<tr>
+<td>Linker</td>
+<td>Allows the definition of custom linker commands in analogy to the builtin <code>{filename}</code>, <code>{attach}</code>, <code>{category}</code>, <code>{tag}</code>, <code>{author}</code>, and <code>{index}</code> syntax</td>
+</tr>
+<tr>
+<td>Liquid-style tags</td>
+<td>Allows liquid-style tags to be inserted into markdown within Pelican documents</td>
+</tr>
+<tr>
+<td>Load CSV</td>
+<td>Adds <code>csv</code> Jinja tag to display the contents of a CSV file as an HTML table</td>
+</tr>
+<tr>
+<td>Markdown Inline Extend</td>
+<td>允许你添加自定义的markdown行内标签</td>
+</tr>
+<tr>
+<td>Markdown-metaYAML</td>
+<td>允许在markdown中使用YAML风格的元数据</td>
+</tr>
+<tr>
+<td>Math Render</td>
+<td>允许Pelican渲染数学公式</td>
+</tr>
+<tr>
+<td>Mbox Reader</td>
+<td>Generate articles automatically via email, given a path to a Unix mbox</td>
+</tr>
+<tr>
+<td>More Categories</td>
+<td>支持单博文多目录，嵌套目录</td>
+</tr>
+<tr>
+<td>Multi Neighbors</td>
+<td>在每个博文的上下文中添加一个“更新文章”和“更旧文章”列表</td>
+</tr>
+<tr>
+<td>Multi parts posts</td>
+<td>可以写多部分的博文</td>
+</tr>
+<tr>
+<td>Neighbor articles</td>
+<td>添加“下一篇”和“上一篇”变量到Article的上下文</td>
+</tr>
+<tr>
+<td>Open graph</td>
+<td>Generates Open Graph tags for your articles</td>
+</tr>
+<tr>
+<td>Optimize images</td>
+<td>Applies lossless compression on JPEG and PNG images</td>
+</tr>
+<tr>
+<td>Org Reader</td>
+<td>通过Emacs Orgmode文件生成博文</td>
+</tr>
+<tr>
+<td>Page View</td>
+<td>Pull page view count from Google Analytics.</td>
+</tr>
+<tr>
+<td>Panorama</td>
+<td>Creates charts from posts metadata</td>
+</tr>
+<tr>
+<td>PDF generator</td>
+<td>自动将博文和页面导出为PDF文件</td>
+</tr>
+<tr>
+<td>PDF Images</td>
+<td>如果一个img标签的src属性是一个PDF或EPS或PS文件，则生成一个PNG预览图，其链接指向源文件</td>
+</tr>
+<tr>
+<td>Pelican Cite</td>
+<td>Produces inline citations and a bibliography in articles and pages, using a BibTeX file.</td>
+</tr>
+<tr>
+<td>Pelican Comment System</td>
+<td>Allows you to add static comments to your articles</td>
+</tr>
+<tr>
+<td>pelican-ert</td>
+<td>Allows you to add estimated reading time of an article</td>
+</tr>
+<tr>
+<td>Pelican-flickr</td>
+<td>Brings your Flickr photos &amp; sets into your static website</td>
+</tr>
+<tr>
+<td>Pelican Genealogy</td>
+<td>Add surnames and people so metadata and context can be accessed from within a theme to provide surname and person pages</td>
+</tr>
+<tr>
+<td>Pelican Gist tag</td>
+<td>更容易在Pelican博文中添加GitHub Gist代码片段</td>
+</tr>
+<tr>
+<td>Pelican Github Projects</td>
+<td>在页面中添加你的GitHub项目的列表</td>
+</tr>
+<tr>
+<td>pelican_javascript</td>
+<td>允许你在单独的博文中添加Javascript和CSS文件</td>
+</tr>
+<tr>
+<td>Pelican Jinja2Content</td>
+<td>Allows the use of Jinja2 template code in articles, including <code>include</code> and <code>import</code> statements</td>
+</tr>
+<tr>
+<td>Pelican Link Class</td>
+<td>为站内链接和站外链接设置不同的class</td>
+</tr>
+<tr>
+<td>Pelican Meetup Info</td>
+<td>Include your Meetup.com group and event information on generated pages and articles</td>
+</tr>
+<tr>
+<td>Pelican Page Hierarchy</td>
+<td>Creates a URL hierarchy for pages that matches the filesystem hierarchy of their sources</td>
+</tr>
+<tr>
+<td>Pelican Page Order</td>
+<td>Adds a <code>page_order</code> attribute to all pages if one is not defined.</td>
+</tr>
+<tr>
+<td>Pelican Themes Generator</td>
+<td>Generates theme screenshots from the Pelican Themes repository</td>
+</tr>
+<tr>
+<td>pelican-rdf</td>
+<td>Allows the processing of .rdf vocabularies, and the generation of a lightweight documentation.</td>
+</tr>
+<tr>
+<td>pelican-toc</td>
+<td>Generates a Table of Contents and make it available to the theme via article.toc</td>
+</tr>
+<tr>
+<td>Pelican Vimeo</td>
+<td>Enables you to embed Vimeo videos in your pages and articles</td>
+</tr>
+<tr>
+<td>Pelican YouTube</td>
+<td>Enables you to embed YouTube videos in your pages and articles</td>
+</tr>
+<tr>
+<td>pelicanfly</td>
+<td>Lets you type things like <code>i ♥ :fa-coffee:</code> in your Markdown documents and have it come out as little Font Awesome icons in the browser</td>
+</tr>
+<tr>
+<td>Photos</td>
+<td>Add a photo or a gallery of photos to an article, or include photos in the body text. Resize photos as needed.</td>
+</tr>
+<tr>
+<td>permalink</td>
+<td>通过html重定向启用永久链接</td>
+</tr>
+<tr>
+<td>Pin to top</td>
+<td>Pin Pelican's article(s) to top "Sticky article"</td>
+</tr>
+<tr>
+<td>PlantUML</td>
+<td>Allows you to define UML diagrams directly into rst documents using the great PlantUML tool</td>
+</tr>
+<tr>
+<td>Post Revision</td>
+<td>Extract article and page revision information from Git commit history</td>
+</tr>
+<tr>
+<td>Post statistics</td>
+<td>计算博文的多种统计数据，并存储在博文的article.stats字典里</td>
+</tr>
+<tr>
+<td>Random article</td>
+<td>生成一个重定向到随机博文的html文件</td>
+</tr>
+<tr>
+<td>Read More link</td>
+<td>在最后一个html元素后添加一个行内的“阅读更多”或“继续”链接</td>
+</tr>
+<tr>
+<td>Readtime</td>
+<td>以'<n> minutes'的格式添加博文的近似阅读时间</td>
+</tr>
+<tr>
+<td>Related posts</td>
+<td>添加“相关博文”变量到article的上下文</td>
+</tr>
+<tr>
+<td>Render Math</td>
+<td>通过MathJax JS引擎渲染数学公式</td>
+</tr>
+<tr>
+<td>Replacer</td>
+<td>Replace a text of a generated HTML</td>
+</tr>
+<tr>
+<td>Representative image</td>
+<td>Extracts a representative image (i.e, featured image) from the article's summary or content</td>
+</tr>
+<tr>
+<td>RMD Reader</td>
+<td>通过kniter RMarkdown语言写博文</td>
+</tr>
+<tr>
+<td>Section number</td>
+<td>Adds section numbers for article headers, in the form of <code>2.3.3</code></td>
+</tr>
+<tr>
+<td>Series</td>
+<td>Groups related articles into a series</td>
+</tr>
+<tr>
+<td>Share post</td>
+<td>Creates share URLs of article</td>
+</tr>
+<tr>
+<td>Show Source</td>
+<td>为博文添加一个链接指向源代码</td>
+</tr>
+<tr>
+<td>Similar Posts</td>
+<td>为每篇文章添加一个“相似文章”列表</td>
+</tr>
+<tr>
+<td>Simple footnotes</td>
+<td>为博文添加脚注</td>
+</tr>
+<tr>
+<td>Sitemap</td>
+<td>生成纯文本的或XML格式的站点地图</td>
+</tr>
+<tr>
+<td>Slim</td>
+<td>Render theme template files via Plim, a Python port of Slim, instead of Jinja</td>
+</tr>
+<tr>
+<td>Static comments</td>
+<td>Allows you to add static comments to an article</td>
+</tr>
+<tr>
+<td>Subcategory</td>
+<td>支持子目录</td>
+</tr>
+<tr>
+<td>Sub parts</td>
+<td>Break a very long article in parts, without polluting the timeline with lots of small articles.</td>
+</tr>
+<tr>
+<td>Summary</td>
+<td>Allows easy, variable length summaries directly embedded into the body of your articles</td>
+</tr>
+<tr>
+<td>tag_cloud</td>
+<td>提供一个标签云</td>
+</tr>
+<tr>
+<td>Textile Reader</td>
+<td>Adds support for Textile markup</td>
+</tr>
+<tr>
+<td>Thumbnailer</td>
+<td>为一个指定的文件夹下的所有图片创建缩放</td>
+</tr>
+<tr>
+<td>Tipue Search</td>
+<td>Serializes generated HTML to JSON that can be used by jQuery plugin - Tipue Search</td>
+</tr>
+<tr>
+<td>Touch</td>
+<td>Does a touch on your generated files using the date metadata from the content</td>
+</tr>
+<tr>
+<td>Twitter Bootstrap</td>
+<td>Defines some rst directive that enable a clean usage of the twitter bootstrap CSS and Javascript components</td>
+</tr>
+<tr>
+<td>txt2tags_reader</td>
+<td>Reader that renders txt2tags markup in content</td>
+</tr>
+<tr>
+<td>Unity WebGL</td>
+<td>Easily embed Unity3d games into posts and pages</td>
+</tr>
+<tr>
+<td>Video Privacy Enhancer</td>
+<td>Increases user privacy by stopping YouTube, Google, et al from placing cookies via embedded video</td>
+</tr>
+<tr>
+<td>W3C validate</td>
+<td>将生成的HTML文档提交到W3C标签校核服务</td>
+</tr>
+<tr>
+<td>Yuicompressor</td>
+<td>采用YuiCompresser将CSS和JS文件进行压缩</td>
+</tr>
+</tbody>
+</table>
     </div>
   </article>
     </div>

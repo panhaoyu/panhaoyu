@@ -38,7 +38,6 @@
             <li class="list-inline-item"><a href="https://panhaoyu.github.io/category/lu-xing.html">旅行</a></li>
             <li class="list-inline-item"><a href="https://panhaoyu.github.io/category/ma-nong.html">码农</a></li>
             <li class="list-inline-item"><a href="https://panhaoyu.github.io/category/si-kao.html">思考</a></li>
-            <li class="list-inline-item"><a href="https://panhaoyu.github.io/category/yan-tu.html">岩土</a></li>
             <li class="list-inline-item"><a href="https://panhaoyu.github.io/pages/guan-yu.html">关于</a></li>
       </ul>
   </div>
@@ -64,7 +63,14 @@
       </ul>
     </header>
     <div class="content">
-      
+      <h1>结论</h1>
+<p>所有的在Debug模式下搞定的东西，不要去django里面找Bug。新出现的Bug九成是Apache2带来的。</p>
+<h1>中文路径乱码的坑</h1>
+<p>中文路径乱码。<code>os.stat()</code>这是一个再标准不过的标准库的函数，Python的，跨平台兼容是出名的，但是这一个标准库函数还是出了问题，我开始在django里面各种调试，在django里面测得了<code>os.environ</code>变量中的<code>LANG</code>确实是<code>C</code>，然后在django里面设置<code>os.system('export LANG=C')</code>也并没有什么卵用。最后在apache在配置文件<code>envvars</code>文件里面改掉相应的配置项，解决问题。</p>
+<h1>文件权限的坑</h1>
+<p>文件权限各种出问题。apache中，对文件权限进行了一个新用户的设置，设置为<code>www-data</code>用户。然后就涉及到linux的各种权限问题。新手并不能很好的搞定这个问题，于是各种<code>chmod</code>，<code>chown</code>，整的一团糟。最后采取了一种很野蛮的方式，直接在apache的配置文件中<code>envvars</code>将apache2的用户名也改为了我自己的用户名也就是<code>wolf</code>，虽然可能会带来一些安全性的问题，但是作为我的个人网站，数据并没有太重要，就暂时先这么用了。问题解决。</p>
+<h1>心得体会</h1>
+<p>在接触一个新库的时候，还是应该看一下这个库的帮助文档，而不是仅仅在网上搜各种教程。教程所带来的理解太浅薄，很难解决带来的问题，往往会造成更大的困扰。如果今天早一点传帮助文档，可能问题早就解决了。</p>
     </div>
   </article>
     </div>
