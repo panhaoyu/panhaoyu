@@ -64,60 +64,7 @@
       </ul>
     </header>
     <div class="content">
-      <h1>想法</h1>
-<p>Pelican写插件必然离不开信号机制，而在看不懂Pelican源码的情况下，用这种曲线救国的方式来了解一下Pelican的内部实现。</p>
-<p>别问我为啥不看文档，我看得懂，但文档的介绍太少了。</p>
-<h1>结论</h1>
-<p>先把结论仍出来方便查阅。</p>
-<h2>操作markdown字符串</h2>
-<p>没发现什么好用的信号用于操作markdown字符串，可用markdown插件实现。</p>
-<h2>操作html字符串</h2>
-<p>article_generator_write_article信号用于在每次写入文章之前调用，它的content参数的_content属性是markdown渲染之后的html字符串。</p>
-<h1>信号次序</h1>
-<h2>初始化</h2>
-<p>initialized</p>
-<p>readers_init</p>
-<p>get_generators</p>
-<p>readers_init</p>
-<p>generator_init</p>
-<p>article_generator_init</p>
-<p>readers_init</p>
-<p>generator_init</p>
-<p>page_generator_init</p>
-<p>readers_init</p>
-<p>generator_init</p>
-<p>static_generator_init</p>
-<h2>遍历文章</h2>
-<p>这三个信号在遍历每一篇文章时都会发出一次。</p>
-<p>{</p>
-<p>article_generator_preread</p>
-<p>article_generator_context</p>
-<p>content_object_init</p>
-<p>}</p>
-<p>* 30</p>
-<h2>暂不分析</h2>
-<p>article_generator_pretaxonomy</p>
-<p>article_generator_finalized</p>
-<p>page_generator_preread</p>
-<p>page_generator_context</p>
-<p>content_object_init</p>
-<p>page_generator_finalized</p>
-<p>static_generator_finalized</p>
-<p>all_generators_finalized</p>
-<p>get_writer</p>
-<h2>写入文件</h2>
-<p>{</p>
-<p>article_generator_write_article</p>
-<p>content_written</p>
-<p>} * 30</p>
-<h2>暂不分析</h2>
-<p>{</p>
-<p>content_written</p>
-<p>} * 15</p>
-<p>article_writer_finalized</p>
-<p>content_written</p>
-<p>page_writer_finalized</p>
-<p>finalized</p>
+      
     </div>
   </article>
     </div>

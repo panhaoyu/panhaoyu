@@ -64,39 +64,7 @@
       </ul>
     </header>
     <div class="content">
-      <h1>国内图床的现状</h1>
-<p>七牛云，现在免费空间还是在的，但是要绑定域名了。
-小的一个小小的个人博主，哪来的域名，都是挂在码云上面的。</p>
-<p>各种云，都要收费。</p>
-<p>放弃，改将github作为图床。</p>
-<h1>Github图床初探</h1>
-<p>Github对仓库的限制为1G。
-如果超过1G，“将会收到Github的礼貌的通知”。</p>
-<p>ok首先解决一个道德上的问题，用Github作为图床是否道德？
-Github明确是支持搭建个人博客的。
-那好办了，博客是否包括图片？显然包括的。
-问题解决。</p>
-<h1>搭建图床</h1>
-<p>先在Github上面建一个仓库吧。
-怎么建库就不说了。
-Github的文件有一个raw的源文件链接，可以直接获取外链。</p>
-<p>写了一个小脚本，可以获取外链。</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">storage</span><span class="p">(</span><span class="n">repository</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
-    <span class="k">return</span> <span class="s1">&#39;https://raw.githubusercontent.com/username/{}/master/{}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">repository</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
-</pre></div>
-
-
-<p>记得替换username为你的github用户名。</p>
-<p>有点简单的。
-不要告诉我这几个参数看不懂。</p>
-<p>搞定了。</p>
-<p>好的，这是作为我的Pelican插件的一部分存在的。</p>
-<p>插件的问题另开博文再说。</p>
-<h1>存储空间问题</h1>
-<p>Github对于单仓库有1G的存储空间限制。
-可以看到我上面的函数里面有一个<code>repository</code>参数。我把<code>username</code>写死了，但是<code>repository</code>是活的，就是这个原因。
-我们可以将图片放在多个仓库中。
-大功告成。</p>
+      
     </div>
   </article>
     </div>

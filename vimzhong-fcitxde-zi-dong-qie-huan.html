@@ -64,25 +64,7 @@
       </ul>
     </header>
     <div class="content">
-      <h1>问题</h1>
-<p>vim切换插入模式与命令模式的时候，总是要手动切换输入法，很烦。</p>
-<h1>解决</h1>
-<h2>初步方案</h2>
-<div class="highlight"><pre><span></span>autocmd InsertLeave * call system(&#39;fcitx-remote -c&#39;)
-autocmd InsertLeave * call system(&#39;fcitx-remote -o&#39;)
-</pre></div>
-
-
-<p>这是在<code>.vimrc</code>中的简单配置项，<code>fcitx-remote</code>命令用来操作<code>fcitx</code>的输入法切换功能。</p>
-<h2>更好的方案</h2>
-<p>linux下不要重复开发轮子！</p>
-<p>插件<code>fcitx.vim</code>完美解决了这个问题。</p>
-<p>采用<code>bundle</code>管理插件的话，问题就很好解决了。</p>
-<div class="highlight"><pre><span></span>Plugin &#39;lilydjwg/fcitx.vim&#39;
-</pre></div>
-
-
-<p>easy, 搞定。</p>
+      
     </div>
   </article>
     </div>
