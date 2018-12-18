@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="chinese (simplified)">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>  管理Pelican博客的永久链接 | 大潘的博客
+</title>
+  <link rel="canonical" href="https://panhaoyu.github.io/drafts/guan-li-pelicanbo-ke-de-yong-jiu-lian-jie.html">
+
+
+  <link rel="stylesheet" href="https://panhaoyu.github.io/theme/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://panhaoyu.github.io/theme/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://panhaoyu.github.io/theme/css/pygments/default.min.css">
+  <link rel="stylesheet" href="https://panhaoyu.github.io/theme/css/theme.css">
+
+  
+  <meta name="description" content="">
+
+
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+<div class="row">
+    <div class="col-sm-4">
+      <a href="https://panhaoyu.github.io/">
+        <img class="img-fluid rounded" src=https://raw.githubusercontent.com/panhaoyu/storage1/master/assets/icons/head2.tiny.jpg alt="大潘的博客">
+      </a>
+    </div>
+  <div class="col-sm-8">
+    <h1 class="title"><a href="https://panhaoyu.github.io/">大潘的博客</a></h1>
+      <p class="text-muted">用心感受生活，岩土人也可以浪漫</p>
+      <ul class="list-inline">
+            <li class="list-inline-item"><a href="https://panhaoyu.github.io/category/lu-xing.html">旅行</a></li>
+            <li class="list-inline-item"><a href="https://panhaoyu.github.io/category/ma-nong.html">码农</a></li>
+            <li class="list-inline-item"><a href="https://panhaoyu.github.io/category/si-kao.html">思考</a></li>
+            <li class="list-inline-item"><a href="https://panhaoyu.github.io/category/yan-tu.html">岩土</a></li>
+            <li class="list-inline-item"><a href="https://panhaoyu.github.io/pages/guan-yu.html">关于</a></li>
+      </ul>
+  </div>
+</div>    </div>
+  </header>
+
+  <div class="main">
+    <div class="container">
+      <h1>  管理Pelican博客的永久链接
+</h1>
+      <hr>
+  <article class="article">
+    <header>
+      <ul class="list-inline">
+        <li class="list-inline-item text-muted" title="2018-12-18T00:00:00+08:00">
+          <i class="fa fa-clock-o"></i>
+          周二 18 十二月 2018
+        </li>
+        <li class="list-inline-item">
+          <i class="fa fa-folder-open-o"></i>
+          <a href="https://panhaoyu.github.io/category/ma-nong.html">码农</a>
+        </li>
+      </ul>
+    </header>
+    <div class="content">
+      <h1>插件支持</h1>
+<p>首先要学会使用Pelican的插件。</p>
+<p>在gtithub上面下载Pelican的插件库，
+然后在<code>pelicanconf.py</code>里面添加插件库的路径。</p>
+<p>然后就可以很简单地开关Pelican的插件了。</p>
+<div class="highlight"><pre><span></span><span class="n">PLUGIN_PATHS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">paths</span><span class="o">.</span><span class="n">PLUGINS</span><span class="p">,</span>
+    <span class="n">paths</span><span class="o">.</span><span class="n">MY_PLUGINS</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="n">PLUGINS</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+
+<span class="c1"># 永久链接支持</span>
+<span class="n">PLUGINS</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;permalinks&#39;</span><span class="p">)</span>
+<span class="n">PERMALINK_PATH</span> <span class="o">=</span> <span class="s1">&#39;p/&#39;</span>  <span class="c1"># 永链的相对URL</span>
+<span class="n">PERMALINK_ID_METADATA_KEY</span> <span class="o">=</span> <span class="s1">&#39;permalink&#39;</span>  <span class="c1"># 文章中的永链ID元数据标识符</span>
+</pre></div>
+
+
+<p>这里使用了一个插件：<code>permalink</code>，听名字就听得出来，这是一个永链的插件。
+这个插件有几个设置项，可以自行去插件的<a href="https://github.com/getpelican/pelican-plugins/tree/master/permalinks">github文档</a>里面去查。</p>
+<h1>一个Bug</h1>
+<p>开源的东西，认真维护的人不多，何况又不是核心代码，而仅仅只是一个插件。</p>
+<p>这个<a href="https://github.com/getpelican/pelican-plugins/issues/1023">Bug</a>会导致出问题。自己去查吧。作者已修复，但<code>pelican-plugins</code>没有<code>merge</code>这个<code>pr</code>。</p>
+<h1>我的永链设置策略</h1>
+<p>我觉得永链要尽可能短。于是我修改了默认的URL<code>/permalink/</code>为<code>/p/</code>。</p>
+<p>而且由于博客经常换Git，我不能保证总是Git可追踪，所以我更偏向于将永链写入Markdown文件的Meta元数据中。</p>
+<p>为此我写了一个小程序，获取博客所有博文中的<code>max_permalink</code>最大永链<code>id</code>，并加一，便可得到新的永链。</p>
+<p>这样我的一篇博文的永链就会是如下格式：<code>https://panhaoyu.github.io/p/123.html</code>，看上去干净多了。</p>
+<p>小程序就不贴了，又不难写，<code>os.walk</code>读取所有博文路径，再<code>file.readlines()</code>解析一下，就可以得到每篇文章的<code>permalink_id</code>了。</p>
+<p>OK本文的永链是：<a href="https://panhaoyu.github.io/p/70.html">https://panhaoyu.github.io/p/70.html</a></p>
+<h1>其他一些事情</h1>
+<p>这个永链在本地调试时并不是很好用，具体是怎么实现的我也没查，估计是没有读取<code>pelican --relative-urls</code>参数吧。</p>
+    </div>
+  </article>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+<div class="row">
+  <ul class="col-sm-6 list-inline">
+    <li class="list-inline-item"><a href="https://panhaoyu.github.io/archives.html">归档</a></li>
+    <li class="list-inline-item"><a href="https://panhaoyu.github.io/categories.html">分类</a></li>
+  </ul>
+  <p class="col-sm-6 text-sm-right text-muted">
+    Generated by <a href="https://github.com/getpelican/pelican" target="_blank">Pelican</a>
+    / <a href="https://github.com/nairobilug/pelican-alchemy" target="_blank">&#x2728;</a>
+  </p>
+</div>    </div>
+  </footer>
+</body>
+
+</html>
