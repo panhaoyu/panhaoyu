@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="chinese (simplified)">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>  单独引用django的ORM | 大潘的博客
+</title>
+  <link rel="canonical" href="https://panhaoyu.github.io/dan-du-yin-yong-djangode-orm.html">
+
+
+  <link rel="stylesheet" href="https://panhaoyu.github.io/theme/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://panhaoyu.github.io/theme/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://panhaoyu.github.io/theme/css/pygments/default.min.css">
+  <link rel="stylesheet" href="https://panhaoyu.github.io/theme/css/theme.css">
+
+  
+  <meta name="description" content="单独使用Django的ORM作为程序中的数据库，手动配置Django的环境变量">
+
+
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+<div class="row">
+    <div class="col-sm-4">
+      <a href="https://panhaoyu.github.io/">
+        <img class="img-fluid rounded" src=https://raw.githubusercontent.com/panhaoyu/storage1/master/assets/icons/head2.tiny.jpg alt="大潘的博客">
+      </a>
+    </div>
+  <div class="col-sm-8">
+    <h1 class="title"><a href="https://panhaoyu.github.io/">大潘的博客</a></h1>
+      <p class="text-muted">用心感受生活，岩土人也可以浪漫</p>
+      <ul class="list-inline">
+            <li class="list-inline-item"><a href="https://panhaoyu.github.io/category/lu-xing.html">旅行</a></li>
+            <li class="list-inline-item"><a href="https://panhaoyu.github.io/category/ma-nong.html">码农</a></li>
+            <li class="list-inline-item"><a href="https://panhaoyu.github.io/category/si-kao.html">思考</a></li>
+            <li class="list-inline-item"><a href="https://panhaoyu.github.io/category/yan-tu.html">岩土</a></li>
+            <li class="list-inline-item"><a href="https://panhaoyu.github.io/pages/guan-yu.html">关于</a></li>
+      </ul>
+  </div>
+</div>    </div>
+  </header>
+
+  <div class="main">
+    <div class="container">
+      <h1>  单独引用django的ORM
+</h1>
+      <hr>
+  <article class="article">
+    <header>
+      <ul class="list-inline">
+        <li class="list-inline-item text-muted" title="2018-12-20T00:00:00+08:00">
+          <i class="fa fa-clock-o"></i>
+          周四 20 十二月 2018
+        </li>
+        <li class="list-inline-item">
+          <i class="fa fa-folder-open-o"></i>
+          <a href="https://panhaoyu.github.io/category/ma-nong.html">码农</a>
+        </li>
+      </ul>
+    </header>
+    <div class="content">
+      <h1>需求</h1>
+<p>用过Django的ORM可能都知道Django的ORM的舒服，
+并希望在自己的一切项目的用Django的ORM吧。</p>
+<p>Django是一个很庞大的库，如果是用于发布的软件，并不建议这么用，
+对于写一些个人的小软件，就不必顾率这么多了吧。</p>
+<h1>配置环境</h1>
+<p>首先我还是用Django建了个项目，因为实在是不想再去研究Django后面的<code>manage.py</code>的实现了。</p>
+<div class="highlight"><pre><span></span>django-admin startproject project .
+</pre></div>
+
+
+<p>写一个非常简单的小脚本进行环境配置。</p>
+<div class="highlight"><pre><span></span><span class="c1"># settings.py</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">django</span>
+<span class="kn">import</span> <span class="nn">django.conf</span>
+
+<span class="c1"># 配置数据库</span>
+<span class="c1"># 具体配置方法去django文档里面查</span>
+<span class="c1"># Django文档写得真的棒</span>
+
+<span class="n">DATABASES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s1">&#39;ENGINE&#39;</span><span class="p">:</span> <span class="s1">&#39;django.db.backends.sqlite3&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;NAME&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;db&#39;</span><span class="p">,</span> <span class="s1">&#39;db.sqlite3&#39;</span><span class="p">),</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1"># 添加你的app到项目</span>
+
+<span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;db&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="c1"># 启动函数</span>
+<span class="c1"># 配置启动环境的实际函数</span>
+
+<span class="k">def</span> <span class="nf">setup</span><span class="p">():</span>
+    <span class="n">django</span><span class="o">.</span><span class="n">conf</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span>
+        <span class="n">DATABASES</span><span class="o">=</span><span class="n">DATABASES</span><span class="p">,</span>
+        <span class="n">INSTALLED_APPS</span><span class="o">=</span><span class="n">INSTALLED_APPS</span><span class="p">,</span>
+        <span class="n">DEBUG</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">django</span><span class="o">.</span><span class="n">setup</span><span class="p">()</span>
+
+<span class="c1"># 任何地方，只要调用这个函数就可以配置环境</span>
+
+<span class="n">setup</span><span class="p">()</span>
+</pre></div>
+
+
+<h1>使用ORM</h1>
+<p>配置完成后，就可以在项目中使用Django的方便用ORM了。</p>
+<div class="highlight"><pre><span></span><span class="c1"># main.py</span>
+
+<span class="kn">from</span> <span class="nn">settings</span> <span class="k">import</span> <span class="n">FileStatusModel</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">FileStatusModel</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">())</span>
+</pre></div>
+
+
+<p>成功</p>
+<p>可以看到，我并没有采取在<code>main.py</code>中使用<code>from setup import setup</code>然后调用<code>setup()</code>函数的写法，
+因为我在<code>settings.py</code>里就直接写了<code>setup()</code>的调用。
+由于Python对于模块的调用机制，不管执行几次的<code>import settings</code>，都只会执行一次的<code>setup()</code>函数。</p>
+<h1>配置manage.py</h1>
+<p>为什么要新建一个Django项目，就是因为不想去搞manage.py里面的<code>makemigrations</code>和<code>migrate</code>命令。</p>
+<div class="highlight"><pre><span></span><span class="c1"># manage.py</span>
+
+<span class="c1">#!/usr/bin/env python</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">settings</span>
+<span class="kn">from</span> <span class="nn">django.core.management</span> <span class="k">import</span> <span class="n">execute_from_command_line</span>
+
+<span class="n">execute_from_command_line</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+</pre></div>
+
+
+<p>差不多就是这个路子了。</p>
+<p>再分享一下最后的项目结构吧。</p>
+<p><img alt="django_orm" src="https://raw.githubusercontent.com/panhaoyu/storage1/master/开发/django_orm.png"></p>
+    </div>
+  </article>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+<div class="row">
+  <ul class="col-sm-6 list-inline">
+    <li class="list-inline-item"><a href="https://panhaoyu.github.io/archives.html">归档</a></li>
+    <li class="list-inline-item"><a href="https://panhaoyu.github.io/categories.html">分类</a></li>
+  </ul>
+  <p class="col-sm-6 text-sm-right text-muted">
+    Generated by <a href="https://github.com/getpelican/pelican" target="_blank">Pelican</a>
+    / <a href="https://github.com/nairobilug/pelican-alchemy" target="_blank">&#x2728;</a>
+  </p>
+</div>    </div>
+  </footer>
+</body>
+
+</html>
