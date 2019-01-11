@@ -151,6 +151,21 @@
 <p>写了个小脚本，放在了<code>test_project/upload.py</code>。</p>
 <p>先删除生成的文件夹，再重新生成项目，然后上传。</p>
 <p>会要你输入你的PYPI用户名和密码。</p>
+<h1>pip安装项目</h1>
+<div class="highlight"><pre><span></span>pip install your_project_name
+</pre></div>
+
+
+<p>记得先看看有没有重名的项目，这项目名可是全局唯一的哦。</p>
+<p>如果你之前换了国内的源，那直接<code>pip install</code>是有延迟的，等同步之后就可以用了。</p>
+<p>如果很急，那就</p>
+<div class="highlight"><pre><span></span>pip install --index-url<span class="o">=</span>https://pypi.org/simple/ your_project_name
+</pre></div>
+
+
+<p>更新之后再次下载安装，要加上<code>--upgrade</code>参数。</p>
+<div class="highlight"><pre><span></span>pip install --upgrade your_project_name
+</pre></div>
     </div>
   </article>
     </div>
