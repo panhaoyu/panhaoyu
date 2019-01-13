@@ -64,7 +64,25 @@
       </ul>
     </header>
     <div class="content">
-      <p>这并不是一篇教程，单纯是一个小小的个人总结，以及一些关于新技术的体会。</p>
+      <h1>发现新大陆</h1>
+<p>没有垃圾的语言，只有垃圾的程序员。</p>
+<p><code>Python</code>作为一个大牌语言，还是很稳的。</p>
+<p><code>asyncio</code>确实没有提供一个<code>Monkey patch</code>，但这并不意味着就没法用原来的库了。</p>
+<p><code>asyncio</code>中有这样一个函数叫<code>run_in_executor</code>，用于新开一个线程进行阻塞操作。</p>
+<p>不是所有的问题都有异步解决方案，如果操作系统压根就不提供异步接口，说什么都白扯。
+所以有了这个函数，损耗一部分性能，把线程异步做得看起来像是一个协程。</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">block_io_function</span><span class="p">():</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">coroutine</span><span class="p">():</span>
+    <span class="n">loop</span> <span class="o">=</span> <span class="n">get_running_loop</span><span class="p">()</span>
+    <span class="n">loop</span><span class="o">.</span><span class="n">run_in_executor</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="n">block_io_function</span><span class="p">)</span>
+</pre></div>
+
+
+<p>搞定。</p>
+<h1>以下为原博文</h1>
+<p>这并不是一篇教程，单纯是一个小小的个人总结，以及一些关于新技术的体会。</p>
 <p>异步是什么，不多说了，写了这么久的JS，简直不要更熟悉。
 <code>async/await</code>，是一个很好的东西，听上去非常的美好，又快，又省资源，开发难度也不是太大。</p>
 <p>问题来了。</p>
