@@ -72,10 +72,12 @@
 好的，这是一个同步包。这个包，开发时长比我学Python的时间都长。
 异步编程，开弓没有回头箭，每一步都要是异步编程。
 现在，这个<code>PyGith</code>并不是一个异步包。</p>
-<p>那，有这样几个选择吧。
-<em> 用<code>aiohttp</code>重写<code>PyGithub</code>。
-</em> 换<code>gevent</code>的<code>monkey patch</code>。
-* 老老实实地用同步开发。</p>
+<p>那，有这样几个选择吧。</p>
+<ul>
+<li>用<code>aiohttp</code>重写<code>PyGithub</code>。</li>
+<li>换<code>gevent</code>的<code>monkey patch</code>。</li>
+<li>老老实实地用同步开发。</li>
+</ul>
 <p>我是一个激进者吗？我不知道。
 我为了用异步开发，专门装了<code>Python 3.7</code>，这是现在最新的稳定版本了。</p>
 <p>我选择重写<code>PyGithub</code>。
