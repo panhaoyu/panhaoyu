@@ -94,7 +94,22 @@
 <p>随心而谈，没什么逻辑，滚回去备考了。</p>
     </div>
   </article>
-    </div>
+<hr>
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: 'db554d9cb7dc56fc3aab',
+        clientSecret: 'd1fb48a2be5250e7d3cb3d28d84dfc1df6549bf3',
+        repo: 'panhaoyu/panhaoyu.github.io',
+        owner: 'panhaoyu',
+        admin: ['panhaoyu'],
+        id: ,
+        distractionFreeMode: false,
+    });
+    gitalk.render('gitalk-container')
+</script>    </div>
   </div>
 
   <footer class="footer">

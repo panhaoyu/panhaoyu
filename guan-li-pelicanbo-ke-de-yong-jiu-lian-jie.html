@@ -99,7 +99,22 @@
 <p>这个永链在本地调试时并不是很好用，具体是怎么实现的我也没查，估计是没有读取<code>pelican --relative-urls</code>参数吧。</p>
     </div>
   </article>
-    </div>
+<hr>
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: 'db554d9cb7dc56fc3aab',
+        clientSecret: 'd1fb48a2be5250e7d3cb3d28d84dfc1df6549bf3',
+        repo: 'panhaoyu/panhaoyu.github.io',
+        owner: 'panhaoyu',
+        admin: ['panhaoyu'],
+        id: ,
+        distractionFreeMode: false,
+    });
+    gitalk.render('gitalk-container')
+</script>    </div>
   </div>
 
   <footer class="footer">

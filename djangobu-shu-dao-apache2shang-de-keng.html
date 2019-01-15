@@ -74,7 +74,22 @@
 <p>在接触一个新库的时候，还是应该看一下这个库的帮助文档，而不是仅仅在网上搜各种教程。教程所带来的理解太浅薄，很难解决带来的问题，往往会造成更大的困扰。如果今天早一点传帮助文档，可能问题早就解决了。</p>
     </div>
   </article>
-    </div>
+<hr>
+<div id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: 'db554d9cb7dc56fc3aab',
+        clientSecret: 'd1fb48a2be5250e7d3cb3d28d84dfc1df6549bf3',
+        repo: 'panhaoyu/panhaoyu.github.io',
+        owner: 'panhaoyu',
+        admin: ['panhaoyu'],
+        id: ,
+        distractionFreeMode: false,
+    });
+    gitalk.render('gitalk-container')
+</script>    </div>
   </div>
 
   <footer class="footer">
