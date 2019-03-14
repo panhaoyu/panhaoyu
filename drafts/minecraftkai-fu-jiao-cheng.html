@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="chinese (simplified)">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>  Minecraft开服教程 | 大潘的博客
+</title>
+  <link rel="canonical" href="https://panhaoyu.github.io/drafts/minecraftkai-fu-jiao-cheng.html">
+
+
+  <link rel="stylesheet" href="https://panhaoyu.github.io/theme/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://panhaoyu.github.io/theme/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://panhaoyu.github.io/theme/css/pygments/default.min.css">
+  <link rel="stylesheet" href="https://panhaoyu.github.io/theme/css/theme.css">
+
+  
+  <meta name="description" content="">
+
+
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+<div class="row">
+    <div class="col-sm-4">
+      <a href="https://panhaoyu.github.io/">
+        <img class="img-fluid rounded" src=https://raw.githubusercontent.com/panhaoyu/storage1/master/assets/icons/head2.jpg alt="大潘的博客">
+      </a>
+    </div>
+  <div class="col-sm-8">
+    <h1 class="title"><a href="https://panhaoyu.github.io/">大潘的博客</a></h1>
+      <p class="text-muted">用心感受生活，岩土人也可以浪漫</p>
+      <ul class="list-inline">
+            <li class="list-inline-item"><a href="https://panhaoyu.github.io/category/lu-xing.html">旅行</a></li>
+            <li class="list-inline-item"><a href="https://panhaoyu.github.io/category/ma-nong.html">码农</a></li>
+            <li class="list-inline-item"><a href="https://panhaoyu.github.io/category/si-kao.html">思考</a></li>
+            <li class="list-inline-item"><a href="https://panhaoyu.github.io/category/yan-tu.html">岩土</a></li>
+            <li class="list-inline-item"><a href="https://panhaoyu.github.io/pages/guan-yu.html">关于</a></li>
+      </ul>
+  </div>
+</div>    </div>
+  </header>
+
+  <div class="main">
+    <div class="container">
+      <h1>  Minecraft开服教程
+</h1>
+      <hr>
+  <article class="article">
+    <header>
+      <ul class="list-inline">
+        <li class="list-inline-item text-muted" title="2019-03-14T00:00:00+08:00">
+          <i class="fa fa-clock-o"></i>
+          周四 14 三月 2019
+        </li>
+        <li class="list-inline-item">
+          <i class="fa fa-folder-open-o"></i>
+          <a href="https://panhaoyu.github.io/category/ma-nong.html">码农</a>
+        </li>
+      </ul>
+    </header>
+    <div class="content">
+      <h1>准备工作</h1>
+<p>运维操作具有时效性，时间久了不保证可用，请注意博文发表时间。</p>
+<p>本文所有操作基于阿里云学生机Debian8.9系统。
+费用为114人民币/年。</p>
+<p>这里仅介绍Forgeu端。</p>
+<h1>购买服务器</h1>
+<p>服务器买不到就放弃吧。
+建议阿里云新出的轻量应用服务器，给1000G的流量，相当于平均300K的带宽。
+然而一般服务器大多数时间没人，就可以有效利用峰值带宽5M而不是ECS的1M。</p>
+<p>学生机可能不能新建Debian系统，在后面可以选择重装为Debian系统。
+CentOS更稳定，Ubuntu更傻瓜，我觉得Debian很折中，而且我用习惯了。</p>
+<h1>SSH入门</h1>
+<p>本地创建密钥，自己百度。
+SSH密钥分为公钥和私钥，公钥相当于账号，全网随便发，私钥相当于密码，给人拷过去你就凉了。</p>
+<p>如为新版win10推荐去应用市场装一个Debian子系统。
+否则装个PUTTY也是不错的。
+直接装Git然后CMD登录也不是不行。</p>
+<p>进入<a href="https://swas.console.aliyun.com/">轻量应用服务器控制台</a>，
+找到你刚创建的机器，后面所有的操作都要基于这个页面。</p>
+<p>左侧，服务器运维&gt;远程连接&gt;密钥管理，在这把你创建的密钥的公钥copy上去。
+是<strong>公钥</strong>不是<strong>私钥</strong>！</p>
+<p>登录服务器。</p>
+<p>终于可以贴代码了，开心。</p>
+<p>如果本地是Windows的Debian子系统，可以这样登录</p>
+<div class="highlight"><pre><span></span>ssh root@xx.xxx.xxx.xx
+</pre></div>
+
+
+<p>这是以管理员权限登录。
+推荐自己再建一个普通用户，增强安全性。
+不过如果这个服务器只用于开Minecraft也无所谓了。
+此处不提供新建用户的教程。</p>
+<div class="highlight"><pre><span></span>Welcome to Alibaba Cloud Elastic Compute Service !
+
+xxxx@fajsdlkgjwelkjapsdjfkladsgh:~$
+</pre></div>
+
+
+<p>看到这些东西，说明你登录成功了。</p>
+<h1>基本命令介绍</h1>
+<p>这里不可能详细介绍，具体去查。</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cd xxx</td>
+<td>进入文件夹</td>
+</tr>
+<tr>
+<td>mkdir xxx</td>
+<td>新建文件夹</td>
+</tr>
+<tr>
+<td>rm -r xxx</td>
+<td>删除文件（夹），不可恢复！</td>
+</tr>
+<tr>
+<td>cd ..</td>
+<td>反回上层文件夹</td>
+</tr>
+<tr>
+<td>ls</td>
+<td>列出文件及文件夹</td>
+</tr>
+<tr>
+<td>ls -al</td>
+<td>列出包含隐藏文件（夹）的所有文件（夹）</td>
+</tr>
+<tr>
+<td>du -hd 1</td>
+<td>统计存储占用大小</td>
+</tr>
+<tr>
+<td>wget https://server.com/file.jar</td>
+<td>简单的下载命令</td>
+</tr>
+<tr>
+<td>apt-get install python3</td>
+<td>安装命令</td>
+</tr>
+</tbody>
+</table>
+<h1>文件下载</h1>
+<p>在<a href="https://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html">JRE官网</a>上面找到最新的linux的JRE，
+右键保存链接地址，复制到wget后面，就能下载了。
+要<code>.tar.gz</code>格式的！
+如果你了解一点Linux，你会知道Debian自带了一个JAVA。不要用这个！Debian出于安全性的考虑，软件包严重滞后。去官网下载！</p>
+<p>找到原版的jar，下载。
+可以试试<a href="https://mcversions.net/">MC Versions</a>。
+下载1.12.2的server jar.</p>
+<p>下载1.12.2的forge。
+在<a href="https://files.minecraftforge.net/maven/net/minecraftforge/forge/index_1.12.2.html">Forge官网</a>上面找到相应的forge。
+应该不用我提醒，不要下载那个<code>installer-win</code>吧。
+下载<code>installer</code>。</p>
+<div class="highlight"><pre><span></span>wget https://download.oracle.com/otn-pub/java/jdk/8u201-b09/42970487e3af4f5aa5bca3f542482c60/jre-8u201-linux-x64.tar.gz?AuthParam<span class="o">=</span>1552532958_d5c5dceb3a7997bdc1a01a099bb1b861
+wget https://launcher.mojang.com/v1/objects/886945bfb2b978778c3a0288fd7fab09d315b25f/server.jar
+wget https://files.minecraftforge.net/maven/net/minecraftforge/forge/1.12.2-14.23.5.2820/forge-1.12.2-14.23.5.2820-installer.jar
+</pre></div>
+
+
+<p><code>ls -alh</code>看一下文件大小，就知道是否下载正确了。</p>
+<h1>安装JAVA</h1>
+<p>刚才下载的那个java文件名很鬼，如果你下载正确的话，是<code>jre-8u201-linux-x64.tar.gz?AuthParam=1552532958_d5c5dceb3a7997bdc1a01a099bb1b861</code>这个样子。
+要重命名一下。</p>
+<div class="highlight"><pre><span></span>mv jre-8u201-linux-x64.tar.gz<span class="se">\?</span>AuthParam<span class="se">\=</span>1552532958_d5c5dceb3a7997bdc1a01a099bb1b861 jre-8u201-linux-x64.tar.gz
+</pre></div>
+
+
+<p>这回正常多了。</p>
+<p>解压并删除安装包。</p>
+<div class="highlight"><pre><span></span>tar -zxvf jre-<span class="o">[</span>Tab自动补全<span class="o">]</span>
+rm jre-<span class="o">[</span>Tab自动补全<span class="o">]</span>
+</pre></div>
+
+
+<p>因为一些原因，直接运行forge无法下载到vinella minecraft。
+所以我之前手动下载了一份。
+重命名。</p>
+<div class="highlight"><pre><span></span>mv server.jar minecraft_server.1.12.2.jar
+</pre></div>
+
+
+<p>安装Forge.</p>
+<div class="highlight"><pre><span></span>jre1.8.0_201/bin/java -jar forge-1.12.2-14.23.5.2820-installer.jar --installServer
+</pre></div>
+
+
+<p>删掉这个安装器。
+就是这么嚣张233，因为我确定我做得没问题。</p>
+<div class="highlight"><pre><span></span>rm forge-1.12.2-14.23.5.2820-installer.jar
+rm forge-1.12.2-14.23.5.2820-installer.jar.log
+</pre></div>
+
+
+<p>安装完成，启动游戏。</p>
+<div class="highlight"><pre><span></span>jre1.8.0_201/bin/java -jar forge-1.12.2-14.23.5.2820-universal.jar
+</pre></div>
+
+
+<p>可以看到启动失败了。</p>
+<div class="highlight"><pre><span></span><span class="o">[</span><span class="m">11</span>:19:57<span class="o">]</span> <span class="o">[</span>main/INFO<span class="o">]</span> <span class="o">[</span>minecraft/MinecraftServer<span class="o">]</span>: You need to agree to the EULA in order to run the server. Go to eula.txt <span class="k">for</span> more info.
+</pre></div>
+
+
+<p>编辑一下这个文件，把<code>false</code>改成<code>true</code>。</p>
+<p>怎么编辑？？我并不想在这里表达我对Vim的信仰，也不想写一篇两万字的附属教程。</p>
+<p>好的假定你编辑完了，重新启动游戏。</p>
+<p>运行你的第一个Minecraft命令吧。</p>
+<div class="highlight"><pre><span></span>op wolfpan
+</pre></div>
+
+
+<p>我也不知道谁是wolfpan，也不是知道op是啥意思。反正网上说应该这么做。</p>
+<p>问题来了，你不能一直在这挂着吧，一关掉本地命令行窗口，服务器就停了。这可不行。</p>
+<div class="highlight"><pre><span></span>stop
+</pre></div>
+
+
+<p>先退出服务器。</p>
+<div class="highlight"><pre><span></span>nohup jrexxxx/java -jar forgexxx.jar &gt; console.log <span class="p">&amp;</span>
+</pre></div>
+
+
+<p>行了，打开你本地的Minecraft客户端。</p>
+<p>Fine，你会发现还是无法登录。
+可是一切都没问题呀？？</p>
+<p>打开轻量应用服务器控制台，左侧，安全&gt;防火墙&gt;添加规则&gt;自定义&gt;25565&gt;TCP
+打开轻量应用服务器控制台，左侧，安全&gt;防火墙&gt;添加规则&gt;自定义&gt;25565&gt;UDP</p>
+<p>就是完全打开这个端口。</p>
+<p>大功告成。</p>
+<p>有问题请直接在下面评论，我会不定期查邮件的。</p>
+    </div>
+  </article>
+<hr>
+<div id="gitalk-container"></div>
+Gitalk要求repo读写权限，如有安全性顾虑，可在<a href="https://github.com/panhaoyu/panhaoyu.github.io/issues/77">Github Issues</a>直接写评论。
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: 'db554d9cb7dc56fc3aab',
+        clientSecret: 'd1fb48a2be5250e7d3cb3d28d84dfc1df6549bf3',
+        repo: 'panhaoyu.github.io',
+        owner: 'panhaoyu',
+        admin: ['panhaoyu'],
+        id: '77',
+        number: '77',
+        title: 'Minecraft开服教程',
+        body: 'https://panhaoyu.github.io/p/77.html',
+        language: 'zh-CN',
+        perpage: '50',
+        distractionFreeMode: false,
+        pagerDirection: 'first',
+    });
+    gitalk.render('gitalk-container')
+</script>    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+<div class="row">
+  <ul class="col-sm-6 list-inline">
+    <li class="list-inline-item"><a href="https://panhaoyu.github.io/archives.html">归档</a></li>
+    <li class="list-inline-item"><a href="https://panhaoyu.github.io/categories.html">分类</a></li>
+  </ul>
+  <p class="col-sm-6 text-sm-right text-muted">
+    Generated by <a href="https://github.com/getpelican/pelican" target="_blank">Pelican</a>
+    / <a href="https://github.com/nairobilug/pelican-alchemy" target="_blank">&#x2728;</a>
+  </p>
+</div>    </div>
+  </footer>
+</body>
+
+</html>
