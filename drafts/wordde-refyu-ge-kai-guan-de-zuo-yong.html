@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="chinese (simplified)">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>  word的REF域各开关的作用 | 大潘BLOG
+</title>
+  <link rel="canonical" href="https://panhaoyu.github.io/drafts/wordde-refyu-ge-kai-guan-de-zuo-yong.html">
+
+
+  <link rel="stylesheet" href="https://panhaoyu.github.io/theme/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://panhaoyu.github.io/theme/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://panhaoyu.github.io/theme/css/pygments/default.min.css">
+  <link rel="stylesheet" href="https://panhaoyu.github.io/theme/css/theme.css">
+
+  
+  <meta name="description" content="">
+
+
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+<div class="row">
+    <div class="col-sm-4">
+      <a href="https://panhaoyu.github.io/">
+        <img class="img-fluid rounded" src=https://raw.githubusercontent.com/panhaoyu/storage1/master/assets/icons/head2.jpg alt="大潘BLOG">
+      </a>
+    </div>
+  <div class="col-sm-8">
+    <h1 class="title"><a href="https://panhaoyu.github.io/">大潘BLOG</a></h1>
+      <p class="text-muted">用心感受生活，岩土人也可以浪漫</p>
+      <ul class="list-inline">
+            <li class="list-inline-item"><a href="https://panhaoyu.github.io/category/lu-xing.html">旅行</a></li>
+            <li class="list-inline-item"><a href="https://panhaoyu.github.io/category/ma-nong.html">码农</a></li>
+            <li class="list-inline-item"><a href="https://panhaoyu.github.io/category/si-kao.html">思考</a></li>
+            <li class="list-inline-item"><a href="https://panhaoyu.github.io/category/sui-bi.html">随笔</a></li>
+            <li class="list-inline-item"><a href="https://panhaoyu.github.io/category/yan-tu.html">岩土</a></li>
+            <li class="list-inline-item"><a href="https://panhaoyu.github.io/pages/guan-yu.html">关于</a></li>
+      </ul>
+  </div>
+</div>    </div>
+  </header>
+
+  <div class="main">
+    <div class="container">
+      <h1>  word的REF域各开关的作用
+</h1>
+      <hr>
+  <article class="article">
+    <header>
+      <ul class="list-inline">
+        <li class="list-inline-item text-muted" title="2019-06-16T00:00:00+08:00">
+          <i class="fa fa-clock-o"></i>
+          周日 16 六月 2019
+        </li>
+        <li class="list-inline-item">
+          <i class="fa fa-folder-open-o"></i>
+          <a href="https://panhaoyu.github.io/category/ma-nong.html">码农</a>
+        </li>
+      </ul>
+    </header>
+    <div class="content">
+      <h1>官网语法</h1>
+<p>首先列一下Microsoft官网给的语法。</p>
+<p>基本语法：</p>
+<div class="highlight"><pre><span></span>{REF 书签 [开关]}
+</pre></div>
+
+
+<table>
+<thead>
+<tr>
+<th>开关</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\d</td>
+<td>指定章节号和段落编号之间的分隔符。</td>
+</tr>
+<tr>
+<td>\f</td>
+<td>没看懂</td>
+</tr>
+<tr>
+<td>\h</td>
+<td>添加超链接。</td>
+</tr>
+<tr>
+<td>\n</td>
+<td>显示整个段落编号，但不显示后面的句点。</td>
+</tr>
+<tr>
+<td>\p</td>
+<td>显示相对位置，如above、below。</td>
+</tr>
+<tr>
+<td>\r</td>
+<td>没看懂</td>
+</tr>
+<tr>
+<td>\t</td>
+<td>与\n、\r、\w连用时，忽略非分隔符与非数字的文本。</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>显示含有完整多级列表项的段落编号。</td>
+</tr>
+</tbody>
+</table>
+<h1>我需要的功能</h1>
+<p><code>REF 附录一 \t \n</code>会输出<code>一</code>。
+仅仅输出编号数字，而不是<code>附录一：</code>。
+<code>附录一：</code>形式后面会多一个冒号，没法用。</p>
+<h1>一些尝试</h1>
+<table>
+<thead>
+<tr>
+<th>代码</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>REF 附录一</td>
+<td>附录一：Mindlin位移解计算程序</td>
+</tr>
+<tr>
+<td>REF 附录一 \t \n</td>
+<td>一</td>
+</tr>
+</tbody>
+</table>
+<h1>内置交叉引用功能</h1>
+<h2>书签的交叉引用</h2>
+<table>
+<thead>
+<tr>
+<th>功能项</th>
+<th>域代码</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>书签文字</td>
+<td>REF 位移解 \h</td>
+<td>Mindlin位移解</td>
+</tr>
+<tr>
+<td>页码</td>
+<td>PAGEREF 位移解 \h</td>
+<td>64</td>
+</tr>
+<tr>
+<td>段落编号</td>
+<td>REF 位移解 \r \h</td>
+<td>附录一：</td>
+</tr>
+<tr>
+<td>段落编号（无上下文）</td>
+<td>REF 位移解 \n \h</td>
+<td>附录一：</td>
+</tr>
+<tr>
+<td>段落编号（完整上下文）</td>
+<td>REF 位移解 \w \h</td>
+<td>附录一：</td>
+</tr>
+<tr>
+<td>见上方/见下方</td>
+<td>REF 位移解 \p \h</td>
+<td>见下方</td>
+</tr>
+</tbody>
+</table>
+<h2>题注的交叉引用</h2>
+<table>
+<thead>
+<tr>
+<th>功能项</th>
+<th>域代码</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>整项题注</td>
+<td>REF _Ref11595475 \h</td>
+<td>图 3.5降水井模型图</td>
+</tr>
+<tr>
+<td>仅标签和编号</td>
+<td>REF _Ref11045357 \h</td>
+<td>图 3.5</td>
+</tr>
+<tr>
+<td>只有题注文字</td>
+<td>REF _Ref11595623 \h</td>
+<td>降水井模型图</td>
+</tr>
+<tr>
+<td>页码</td>
+<td>PAGEREF _Ref11595475 \h</td>
+<td>33</td>
+</tr>
+<tr>
+<td>见上方/见下方</td>
+<td>REF _Ref11595475 \p \h</td>
+<td>above</td>
+</tr>
+</tbody>
+</table>
+<p>关于题注中的“整项题注”、“仅标签和编号”、“只有题注文字”三项的差异，
+压根就不是通过改变域代码的开关完成的，而是不同位置的书签。</p>
+<p>附上<a href="https://raw.githubusercontent.com/panhaoyu/storage1/master/default/REF域" target="_blank">Word的域代码列表]<a href="https://support.office.com/zh-cn/article/word-%E4%B8%AD%E7%9A%84%E5%9F%9F%E4%BB%A3%E7%A0%81%E5%88%97%E8%A1%A8-1ad6d91a-55a7-4a8d-b535-cf7888659a51">域代码</a>，以及[REF域的帮助文档</a>。</p>
+    </div>
+  </article>
+<hr>
+<div id="gitalk-container"></div>
+Gitalk要求repo读写权限，如有安全性顾虑，可在<a href="https://github.com/panhaoyu/panhaoyu.github.io/issues/87">Github Issues</a>直接写评论。
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: 'db554d9cb7dc56fc3aab',
+        clientSecret: 'd1fb48a2be5250e7d3cb3d28d84dfc1df6549bf3',
+        repo: 'panhaoyu.github.io',
+        owner: 'panhaoyu',
+        admin: ['panhaoyu'],
+        id: '87',
+        number: '87',
+        title: 'word的REF域各开关的作用',
+        body: 'https://panhaoyu.github.io/p/87.html',
+        language: 'zh-CN',
+        perpage: '50',
+        distractionFreeMode: false,
+        pagerDirection: 'first',
+    });
+    gitalk.render('gitalk-container')
+</script>    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+<div class="row">
+  <ul class="col-sm-6 list-inline">
+    <li class="list-inline-item"><a href="https://panhaoyu.github.io/archives.html">归档</a></li>
+    <li class="list-inline-item"><a href="https://panhaoyu.github.io/categories.html">分类</a></li>
+  </ul>
+  <p class="col-sm-6 text-sm-right text-muted">
+    Generated by <a href="https://github.com/getpelican/pelican" target="_blank">Pelican</a>
+    / <a href="https://github.com/nairobilug/pelican-alchemy" target="_blank">&#x2728;</a>
+  </p>
+</div>    </div>
+  </footer>
+</body>
+
+</html>
