@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="chinese (simplified)">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>  Pelican信号机制 | 大潘BLOG
+</title>
+  <link rel="canonical" href="http://blog.panhaoyu.top/pelicanxin-hao-ji-zhi.html">
+
+
+  <link rel="stylesheet" href="http://blog.panhaoyu.top/theme/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://blog.panhaoyu.top/theme/css/font-awesome.min.css">
+  <link rel="stylesheet" href="http://blog.panhaoyu.top/theme/css/pygments/default.min.css">
+  <link rel="stylesheet" href="http://blog.panhaoyu.top/theme/css/theme.css">
+
+  
+  <meta name="description" content="Pelican的信号机制测试并记录">
+
+
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+<div class="row">
+    <div class="col-sm-4">
+      <a href="http://blog.panhaoyu.top/">
+        <img class="img-fluid rounded" src=https://raw.githubusercontent.com/panhaoyu/storage1/master/assets/icons/head2.jpg alt="大潘BLOG">
+      </a>
+    </div>
+  <div class="col-sm-8">
+    <h1 class="title"><a href="http://blog.panhaoyu.top/">大潘BLOG</a></h1>
+      <p class="text-muted">用心感受生活，岩土人也可以浪漫</p>
+      <ul class="list-inline">
+            <li class="list-inline-item"><a href="http://blog.panhaoyu.top/category/lu-xing.html">旅行</a></li>
+            <li class="list-inline-item"><a href="http://blog.panhaoyu.top/category/ma-nong.html">码农</a></li>
+            <li class="list-inline-item"><a href="http://blog.panhaoyu.top/category/si-kao.html">思考</a></li>
+            <li class="list-inline-item"><a href="http://blog.panhaoyu.top/category/sui-bi.html">随笔</a></li>
+            <li class="list-inline-item"><a href="http://blog.panhaoyu.top/category/yan-tu.html">岩土</a></li>
+            <li class="list-inline-item"><a href="http://blog.panhaoyu.top/pages/guan-yu.html">关于</a></li>
+      </ul>
+  </div>
+</div>    </div>
+  </header>
+
+  <div class="main">
+    <div class="container">
+      <h1>  Pelican信号机制
+</h1>
+      <hr>
+  <article class="article">
+    <header>
+      <ul class="list-inline">
+        <li class="list-inline-item text-muted" title="2017-09-09T00:00:00+08:00">
+          <i class="fa fa-clock-o"></i>
+          周六 09 九月 2017
+        </li>
+        <li class="list-inline-item">
+          <i class="fa fa-folder-open-o"></i>
+          <a href="http://blog.panhaoyu.top/category/ma-nong.html">码农</a>
+        </li>
+      </ul>
+    </header>
+    <div class="content">
+      <h1>想法</h1>
+<p>Pelican写插件必然离不开信号机制，而在看不懂Pelican源码的情况下，用这种曲线救国的方式来了解一下Pelican的内部实现。</p>
+<p>别问我为啥不看文档，我看得懂，但文档的介绍太少了。</p>
+<h1>结论</h1>
+<p>先把结论仍出来方便查阅。</p>
+<h2>操作markdown字符串</h2>
+<p>没发现什么好用的信号用于操作markdown字符串，可用markdown插件实现。</p>
+<h2>操作html字符串</h2>
+<p>article_generator_write_article信号用于在每次写入文章之前调用，它的content参数的_content属性是markdown渲染之后的html字符串。</p>
+<h1>信号次序</h1>
+<h2>初始化</h2>
+<p>initialized</p>
+<p>readers_init</p>
+<p>get_generators</p>
+<p>readers_init</p>
+<p>generator_init</p>
+<p>article_generator_init</p>
+<p>readers_init</p>
+<p>generator_init</p>
+<p>page_generator_init</p>
+<p>readers_init</p>
+<p>generator_init</p>
+<p>static_generator_init</p>
+<h2>遍历文章</h2>
+<p>这三个信号在遍历每一篇文章时都会发出一次。</p>
+<p>{</p>
+<p>article_generator_preread</p>
+<p>article_generator_context</p>
+<p>content_object_init</p>
+<p>}</p>
+<p>* 30</p>
+<h2>暂不分析</h2>
+<p>article_generator_pretaxonomy</p>
+<p>article_generator_finalized</p>
+<p>page_generator_preread</p>
+<p>page_generator_context</p>
+<p>content_object_init</p>
+<p>page_generator_finalized</p>
+<p>static_generator_finalized</p>
+<p>all_generators_finalized</p>
+<p>get_writer</p>
+<h2>写入文件</h2>
+<p>{</p>
+<p>article_generator_write_article</p>
+<p>content_written</p>
+<p>} * 30</p>
+<h2>暂不分析</h2>
+<p>{</p>
+<p>content_written</p>
+<p>} * 15</p>
+<p>article_writer_finalized</p>
+<p>content_written</p>
+<p>page_writer_finalized</p>
+<p>finalized</p>
+    </div>
+  </article>
+<hr>
+<div id="gitalk-container"></div>
+Gitalk要求repo读写权限，如有安全性顾虑，可在<a href="https://github.com/panhaoyu/panhaoyu.github.io/issues/32">Github Issues</a>直接写评论。
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: 'db554d9cb7dc56fc3aab',
+        clientSecret: 'd1fb48a2be5250e7d3cb3d28d84dfc1df6549bf3',
+        repo: 'panhaoyu.github.io',
+        owner: 'panhaoyu',
+        admin: ['panhaoyu'],
+        id: '32',
+        number: '32',
+        title: 'Pelican信号机制',
+        body: 'https://panhaoyu.github.io/p/32.html',
+        language: 'zh-CN',
+        perpage: '50',
+        distractionFreeMode: false,
+        pagerDirection: 'first',
+    });
+    gitalk.render('gitalk-container')
+</script>    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+<div class="row">
+  <ul class="col-sm-6 list-inline">
+    <li class="list-inline-item"><a href="http://blog.panhaoyu.top/archives.html">归档</a></li>
+    <li class="list-inline-item"><a href="http://blog.panhaoyu.top/categories.html">分类</a></li>
+  </ul>
+  <p class="col-sm-6 text-sm-right text-muted">
+    Generated by <a href="https://github.com/getpelican/pelican" target="_blank">Pelican</a>
+    / <a href="https://github.com/nairobilug/pelican-alchemy" target="_blank">&#x2728;</a>
+  </p>
+</div>    </div>
+  </footer>
+</body>
+
+</html>

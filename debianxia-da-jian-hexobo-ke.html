@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="chinese (simplified)">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>  Debian下搭建Hexo博客 | 大潘BLOG
+</title>
+  <link rel="canonical" href="http://blog.panhaoyu.top/debianxia-da-jian-hexobo-ke.html">
+
+
+  <link rel="stylesheet" href="http://blog.panhaoyu.top/theme/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://blog.panhaoyu.top/theme/css/font-awesome.min.css">
+  <link rel="stylesheet" href="http://blog.panhaoyu.top/theme/css/pygments/default.min.css">
+  <link rel="stylesheet" href="http://blog.panhaoyu.top/theme/css/theme.css">
+
+  
+  <meta name="description" content="在Debian下搭建Hexo博客的笔记,重点是安装Node.js的过程.">
+
+
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+<div class="row">
+    <div class="col-sm-4">
+      <a href="http://blog.panhaoyu.top/">
+        <img class="img-fluid rounded" src=https://raw.githubusercontent.com/panhaoyu/storage1/master/assets/icons/head2.jpg alt="大潘BLOG">
+      </a>
+    </div>
+  <div class="col-sm-8">
+    <h1 class="title"><a href="http://blog.panhaoyu.top/">大潘BLOG</a></h1>
+      <p class="text-muted">用心感受生活，岩土人也可以浪漫</p>
+      <ul class="list-inline">
+            <li class="list-inline-item"><a href="http://blog.panhaoyu.top/category/lu-xing.html">旅行</a></li>
+            <li class="list-inline-item"><a href="http://blog.panhaoyu.top/category/ma-nong.html">码农</a></li>
+            <li class="list-inline-item"><a href="http://blog.panhaoyu.top/category/si-kao.html">思考</a></li>
+            <li class="list-inline-item"><a href="http://blog.panhaoyu.top/category/sui-bi.html">随笔</a></li>
+            <li class="list-inline-item"><a href="http://blog.panhaoyu.top/category/yan-tu.html">岩土</a></li>
+            <li class="list-inline-item"><a href="http://blog.panhaoyu.top/pages/guan-yu.html">关于</a></li>
+      </ul>
+  </div>
+</div>    </div>
+  </header>
+
+  <div class="main">
+    <div class="container">
+      <h1>  Debian下搭建Hexo博客
+</h1>
+      <hr>
+  <article class="article">
+    <header>
+      <ul class="list-inline">
+        <li class="list-inline-item text-muted" title="2017-05-18T00:00:00+08:00">
+          <i class="fa fa-clock-o"></i>
+          周四 18 五月 2017
+        </li>
+        <li class="list-inline-item">
+          <i class="fa fa-folder-open-o"></i>
+          <a href="http://blog.panhaoyu.top/category/ma-nong.html">码农</a>
+        </li>
+      </ul>
+    </header>
+    <div class="content">
+      <h1>安装Node.js</h1>
+<p>访问<a href="https://nodejs.org/en/" target="_blank">Node.js官网</a>下载稳定版本的Node.js安装程序.下载二进制文件即可.写本文的时候稳定版是<code>node-v6.10.3-linux-x64.tar.xz</code>.</p>
+<h2>解压</h2>
+<div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">~/</span><span class="n">Downloads</span>
+<span class="n">xz</span> <span class="o">-</span><span class="n">d</span> <span class="n">node</span><span class="o">-</span><span class="n">v6</span><span class="p">.</span><span class="mi">10</span><span class="p">.</span><span class="mi">3</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">x64</span><span class="p">.</span><span class="n">tar</span><span class="p">.</span><span class="n">xz</span>
+</pre></div>
+
+
+<h2>解包</h2>
+<div class="highlight"><pre><span></span><span class="n">tar</span> <span class="o">-</span><span class="n">xf</span> <span class="n">node</span><span class="o">-</span><span class="n">v6</span><span class="p">.</span><span class="mi">10</span><span class="p">.</span><span class="mi">3</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">x64</span><span class="p">.</span><span class="n">tar</span>
+</pre></div>
+
+
+<h2>安装</h2>
+<p>所谓安装,就是将解压好的文件复制到任意目录下.其实直接在解压好的目录中就可以用了,但是显然不方便.</p>
+<p>推荐将解包的文件复制到usr目录中,推荐放在<code>/usr/local/lib/node</code>中.我的电脑安装了sudo,没装的切到root用户吧.什么?你没有自己电脑的root权限?拆了吧兄弟.</p>
+<div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">mv</span> <span class="n">node</span><span class="o">-</span><span class="n">v6</span><span class="p">.</span><span class="mi">10</span><span class="p">.</span><span class="mi">3</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">x64</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="k">local</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">node</span>
+</pre></div>
+
+
+<h2>软连接</h2>
+<p>创建软连接.这里我被坑了,由于不懂ln命令,用相对路径创建软连接,错误,改用绝对路径,正确.</p>
+<div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="k">local</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">node</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">node</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="k">local</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">node</span>
+<span class="n">sudo</span> <span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="k">local</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">node</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">npm</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="k">local</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">npm</span>
+</pre></div>
+
+
+<p>node.js安装完毕.npm命令可用.</p>
+<h1>安装hexo</h1>
+<p>很简单了,直接按照中文说明做就好了.</p>
+<h2>安装</h2>
+<div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">npm</span> <span class="n">install</span> <span class="o">-</span><span class="k">g</span> <span class="n">hexo</span><span class="o">-</span><span class="n">cli</span>
+</pre></div>
+
+
+<p>会有警告,不用管.</p>
+<p>安装之后同样需要链接到bin目录下,否则无法直接用hexo命令的.</p>
+<h2>软连接</h2>
+<div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="k">local</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">node</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">node_modules</span><span class="o">/</span><span class="n">hexo</span><span class="o">-</span><span class="n">cli</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">hexo</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="k">local</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">node</span>
+</pre></div>
+
+
+<p>愉快,hexo命令可用了.</p>
+<h2>开始hexo</h2>
+<p>随便找个目录创建hexo工作文件夹,我就在根目录下创建了,这条命令会在当前文件夹下创建blog根目录.</p>
+<div class="highlight"><pre><span></span><span class="n">cd</span>
+<span class="n">hexo</span> <span class="n">init</span> <span class="n">blog</span>
+</pre></div>
+
+
+<p>进入工作目录,可以开始写作了.剩下的就按照hexo帮助文档过一遍基本就会了.</p>
+    </div>
+  </article>
+<hr>
+<div id="gitalk-container"></div>
+Gitalk要求repo读写权限，如有安全性顾虑，可在<a href="https://github.com/panhaoyu/panhaoyu.github.io/issues/2">Github Issues</a>直接写评论。
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: 'db554d9cb7dc56fc3aab',
+        clientSecret: 'd1fb48a2be5250e7d3cb3d28d84dfc1df6549bf3',
+        repo: 'panhaoyu.github.io',
+        owner: 'panhaoyu',
+        admin: ['panhaoyu'],
+        id: '2',
+        number: '2',
+        title: 'Debian下搭建Hexo博客',
+        body: 'https://panhaoyu.github.io/p/2.html',
+        language: 'zh-CN',
+        perpage: '50',
+        distractionFreeMode: false,
+        pagerDirection: 'first',
+    });
+    gitalk.render('gitalk-container')
+</script>    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+<div class="row">
+  <ul class="col-sm-6 list-inline">
+    <li class="list-inline-item"><a href="http://blog.panhaoyu.top/archives.html">归档</a></li>
+    <li class="list-inline-item"><a href="http://blog.panhaoyu.top/categories.html">分类</a></li>
+  </ul>
+  <p class="col-sm-6 text-sm-right text-muted">
+    Generated by <a href="https://github.com/getpelican/pelican" target="_blank">Pelican</a>
+    / <a href="https://github.com/nairobilug/pelican-alchemy" target="_blank">&#x2728;</a>
+  </p>
+</div>    </div>
+  </footer>
+</body>
+
+</html>

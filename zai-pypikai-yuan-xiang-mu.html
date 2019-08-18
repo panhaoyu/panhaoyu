@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="chinese (simplified)">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>  在PYPI开源项目 | 大潘BLOG
+</title>
+  <link rel="canonical" href="http://blog.panhaoyu.top/zai-pypikai-yuan-xiang-mu.html">
+
+
+  <link rel="stylesheet" href="http://blog.panhaoyu.top/theme/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://blog.panhaoyu.top/theme/css/font-awesome.min.css">
+  <link rel="stylesheet" href="http://blog.panhaoyu.top/theme/css/pygments/default.min.css">
+  <link rel="stylesheet" href="http://blog.panhaoyu.top/theme/css/theme.css">
+
+  
+  <meta name="description" content="在PYPI上开源项目，一是可以让朋友更简单地用自己的代码，二是可以在自己的多个设备间、多个项目间更方便地重用代码，而不用写什么.pth文件。">
+
+
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+<div class="row">
+    <div class="col-sm-4">
+      <a href="http://blog.panhaoyu.top/">
+        <img class="img-fluid rounded" src=https://raw.githubusercontent.com/panhaoyu/storage1/master/assets/icons/head2.jpg alt="大潘BLOG">
+      </a>
+    </div>
+  <div class="col-sm-8">
+    <h1 class="title"><a href="http://blog.panhaoyu.top/">大潘BLOG</a></h1>
+      <p class="text-muted">用心感受生活，岩土人也可以浪漫</p>
+      <ul class="list-inline">
+            <li class="list-inline-item"><a href="http://blog.panhaoyu.top/category/lu-xing.html">旅行</a></li>
+            <li class="list-inline-item"><a href="http://blog.panhaoyu.top/category/ma-nong.html">码农</a></li>
+            <li class="list-inline-item"><a href="http://blog.panhaoyu.top/category/si-kao.html">思考</a></li>
+            <li class="list-inline-item"><a href="http://blog.panhaoyu.top/category/sui-bi.html">随笔</a></li>
+            <li class="list-inline-item"><a href="http://blog.panhaoyu.top/category/yan-tu.html">岩土</a></li>
+            <li class="list-inline-item"><a href="http://blog.panhaoyu.top/pages/guan-yu.html">关于</a></li>
+      </ul>
+  </div>
+</div>    </div>
+  </header>
+
+  <div class="main">
+    <div class="container">
+      <h1>  在PYPI开源项目
+</h1>
+      <hr>
+  <article class="article">
+    <header>
+      <ul class="list-inline">
+        <li class="list-inline-item text-muted" title="2019-01-11T00:00:00+08:00">
+          <i class="fa fa-clock-o"></i>
+          周五 11 一月 2019
+        </li>
+        <li class="list-inline-item">
+          <i class="fa fa-folder-open-o"></i>
+          <a href="http://blog.panhaoyu.top/category/ma-nong.html">码农</a>
+        </li>
+      </ul>
+    </header>
+    <div class="content">
+      <h1>注册PYPI</h1>
+<p>开源一个项目，总是要注册一个PYPI账号的。</p>
+<p>没什么说的。欢迎访问我的PYPI主页，我叫wolfpan。</p>
+<h1>写一个项目</h1>
+<p>大概是这么个目录结构吧，</p>
+<div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">test_project</span>
+    <span class="o">-</span> <span class="n">test_project</span>
+        <span class="o">-</span> <span class="n">__init__</span><span class="p">.</span><span class="n">py</span>
+    <span class="o">-</span> <span class="n">README</span><span class="p">.</span><span class="n">md</span>
+    <span class="o">-</span> <span class="n">setup</span><span class="p">.</span><span class="n">py</span>
+    <span class="o">-</span> <span class="n">LICENSE</span>
+</pre></div>
+
+
+<p>这几个文件的作用。。显而易见。</p>
+<p><code>test_project/test_project</code>目录显然是项目的根目录。
+<code>__init__</code>文件说明这是一个包。
+注意有两层文件夹，外面的并没有用，里面的才有用。</p>
+<p><code>setup.py</code>在网上有现成的，就在PYPI的教程页上。</p>
+<h1>setup.py</h1>
+<div class="highlight"><pre><span></span><span class="c1"># setup.py</span>
+<span class="kn">import</span> <span class="nn">setuptools</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;README.md&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+    <span class="n">long_description</span> <span class="o">=</span> <span class="n">fh</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="n">setuptools</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="s2">&quot;example_pkg&quot;</span><span class="p">,</span>
+    <span class="n">version</span><span class="o">=</span><span class="s2">&quot;0.0.1&quot;</span><span class="p">,</span>
+    <span class="n">author</span><span class="o">=</span><span class="s2">&quot;Example Author&quot;</span><span class="p">,</span>
+    <span class="n">author_email</span><span class="o">=</span><span class="s2">&quot;author@example.com&quot;</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="s2">&quot;A small example package&quot;</span><span class="p">,</span>
+    <span class="n">long_description</span><span class="o">=</span><span class="n">long_description</span><span class="p">,</span>
+    <span class="n">long_description_content_type</span><span class="o">=</span><span class="s2">&quot;text/markdown&quot;</span><span class="p">,</span>
+    <span class="n">url</span><span class="o">=</span><span class="s2">&quot;https://github.com/pypa/sampleproject&quot;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="n">setuptools</span><span class="o">.</span><span class="n">find_packages</span><span class="p">(),</span>
+    <span class="n">classifiers</span><span class="o">=</span><span class="p">[</span>
+        <span class="s2">&quot;Programming Language :: Python :: 3&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;License :: OSI Approved :: MIT License&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Operating System :: OS Independent&quot;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+
+
+<p>直接在<a href="https://packaging.python.org/tutorials/packaging-projects/" target="_blank">PYPI的教程页</a>上面搬运的。</p>
+<p>个人做了一些小改动，把我自己的<code>setup.py</code>贴在这里。哦，我这个项目是<code>django_orm_standalone</code>。</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">setuptools</span>
+<span class="kn">import</span> <span class="nn">django_orm_standalone</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;README.md&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+    <span class="n">long_description</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="n">setuptools</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span>
+    <span class="n">name</span><span class="o">=</span><span class="n">django_orm_standalone</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+    <span class="n">version</span><span class="o">=</span><span class="n">django_orm_standalone</span><span class="o">.</span><span class="n">__version__</span><span class="p">,</span>
+    <span class="n">author</span><span class="o">=</span><span class="n">django_orm_standalone</span><span class="o">.</span><span class="n">__author__</span><span class="p">,</span>
+    <span class="n">author_email</span><span class="o">=</span><span class="s1">&#39;haoyupan@aliyun.com&#39;</span><span class="p">,</span>
+    <span class="n">description</span><span class="o">=</span><span class="n">django_orm_standalone</span><span class="o">.</span><span class="n">__description__</span><span class="p">,</span>
+    <span class="n">long_description</span><span class="o">=</span><span class="n">long_description</span><span class="p">,</span>
+    <span class="n">long_description_content_type</span><span class="o">=</span><span class="s1">&#39;text/markdown&#39;</span><span class="p">,</span>
+    <span class="n">url</span><span class="o">=</span><span class="s1">&#39;https://github.com/panhaoyu/django_orm_standalone&#39;</span><span class="p">,</span>
+    <span class="n">packages</span><span class="o">=</span><span class="n">setuptools</span><span class="o">.</span><span class="n">find_packages</span><span class="p">(),</span>
+    <span class="n">classifiers</span><span class="o">=</span><span class="p">[</span>
+        <span class="s1">&#39;Programming Language :: Python :: 3&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;License :: OSI Approved :: MIT License&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Operating System :: OS Independent&#39;</span><span class="p">,</span>
+    <span class="p">],</span>
+<span class="p">)</span>
+</pre></div>
+
+
+<h1>上传项目</h1>
+<div class="highlight"><pre><span></span><span class="c1"># upload.py</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;dist&#39;</span><span class="p">):</span>
+    <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="s1">&#39;dist&#39;</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;python setup.py sdist bdist_wheel&#39;</span><span class="p">)</span>
+<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;twine upload dist/*&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>写了个小脚本，放在了<code>test_project/upload.py</code>。</p>
+<p>先删除生成的文件夹，再重新生成项目，然后上传。</p>
+<p>会要你输入你的PYPI用户名和密码。</p>
+<h1>pip安装项目</h1>
+<div class="highlight"><pre><span></span>pip install your_project_name
+</pre></div>
+
+
+<p>记得先看看有没有重名的项目，这项目名可是全局唯一的哦。</p>
+<p>如果你之前换了国内的源，那直接<code>pip install</code>是有延迟的，等同步之后就可以用了。</p>
+<p>如果很急，那就</p>
+<div class="highlight"><pre><span></span>pip install --index-url<span class="o">=</span>https://pypi.org/simple/ your_project_name
+</pre></div>
+
+
+<p>更新之后再次下载安装，要加上<code>--upgrade</code>参数。</p>
+<div class="highlight"><pre><span></span>pip install --upgrade your_project_name
+</pre></div>
+    </div>
+  </article>
+<hr>
+<div id="gitalk-container"></div>
+Gitalk要求repo读写权限，如有安全性顾虑，可在<a href="https://github.com/panhaoyu/panhaoyu.github.io/issues/74">Github Issues</a>直接写评论。
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: 'db554d9cb7dc56fc3aab',
+        clientSecret: 'd1fb48a2be5250e7d3cb3d28d84dfc1df6549bf3',
+        repo: 'panhaoyu.github.io',
+        owner: 'panhaoyu',
+        admin: ['panhaoyu'],
+        id: '74',
+        number: '74',
+        title: '在PYPI开源项目',
+        body: 'https://panhaoyu.github.io/p/74.html',
+        language: 'zh-CN',
+        perpage: '50',
+        distractionFreeMode: false,
+        pagerDirection: 'first',
+    });
+    gitalk.render('gitalk-container')
+</script>    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+<div class="row">
+  <ul class="col-sm-6 list-inline">
+    <li class="list-inline-item"><a href="http://blog.panhaoyu.top/archives.html">归档</a></li>
+    <li class="list-inline-item"><a href="http://blog.panhaoyu.top/categories.html">分类</a></li>
+  </ul>
+  <p class="col-sm-6 text-sm-right text-muted">
+    Generated by <a href="https://github.com/getpelican/pelican" target="_blank">Pelican</a>
+    / <a href="https://github.com/nairobilug/pelican-alchemy" target="_blank">&#x2728;</a>
+  </p>
+</div>    </div>
+  </footer>
+</body>
+
+</html>

@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="chinese (simplified)">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>  K近邻无监督聚类算法 | 大潘BLOG
+</title>
+  <link rel="canonical" href="http://blog.panhaoyu.top/kjin-lin-wu-jian-du-ju-lei-suan-fa.html">
+
+
+  <link rel="stylesheet" href="http://blog.panhaoyu.top/theme/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://blog.panhaoyu.top/theme/css/font-awesome.min.css">
+  <link rel="stylesheet" href="http://blog.panhaoyu.top/theme/css/pygments/default.min.css">
+  <link rel="stylesheet" href="http://blog.panhaoyu.top/theme/css/theme.css">
+
+  
+  <meta name="description" content="">
+
+
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+<div class="row">
+    <div class="col-sm-4">
+      <a href="http://blog.panhaoyu.top/">
+        <img class="img-fluid rounded" src=https://raw.githubusercontent.com/panhaoyu/storage1/master/assets/icons/head2.jpg alt="大潘BLOG">
+      </a>
+    </div>
+  <div class="col-sm-8">
+    <h1 class="title"><a href="http://blog.panhaoyu.top/">大潘BLOG</a></h1>
+      <p class="text-muted">用心感受生活，岩土人也可以浪漫</p>
+      <ul class="list-inline">
+            <li class="list-inline-item"><a href="http://blog.panhaoyu.top/category/lu-xing.html">旅行</a></li>
+            <li class="list-inline-item"><a href="http://blog.panhaoyu.top/category/ma-nong.html">码农</a></li>
+            <li class="list-inline-item"><a href="http://blog.panhaoyu.top/category/si-kao.html">思考</a></li>
+            <li class="list-inline-item"><a href="http://blog.panhaoyu.top/category/sui-bi.html">随笔</a></li>
+            <li class="list-inline-item"><a href="http://blog.panhaoyu.top/category/yan-tu.html">岩土</a></li>
+            <li class="list-inline-item"><a href="http://blog.panhaoyu.top/pages/guan-yu.html">关于</a></li>
+      </ul>
+  </div>
+</div>    </div>
+  </header>
+
+  <div class="main">
+    <div class="container">
+      <h1>  K近邻无监督聚类算法
+</h1>
+      <hr>
+  <article class="article">
+    <header>
+      <ul class="list-inline">
+        <li class="list-inline-item text-muted" title="2019-04-03T00:00:00+08:00">
+          <i class="fa fa-clock-o"></i>
+          周三 03 四月 2019
+        </li>
+        <li class="list-inline-item">
+          <i class="fa fa-folder-open-o"></i>
+          <a href="http://blog.panhaoyu.top/category/ma-nong.html">码农</a>
+        </li>
+      </ul>
+    </header>
+    <div class="content">
+      <p>帮朋友实现了一个K近邻聚类算法，不是很难，在此做简单记录。</p>
+<p>想装个流程图插件，不过有点懒，抽空折腾吧。</p>
+<h1>核心思路</h1>
+<p>伪代码如下：</p>
+<div class="highlight"><pre><span></span>数据输入：随机生成或文件读取
+生成质心：在数据中随机选取不重复的<span class="nv">k</span>个质心，其中<span class="nv">k</span>为聚类的目标类数
+<span class="k">while</span> 质心改变
+    点位与质心绑定：计算每一个点的最近质心，将点归为该质心所在的类
+    重新计算质心：对各个坐标取平均值
+将同一质心所在的点位归于一类，结束
+</pre></div>
+
+
+<p>核心思路很简单，建模点主要有以下两个：</p>
+<ul>
+<li>坐标系的建立</li>
+<li>距离的定义</li>
+</ul>
+<h1>坐标系的建立</h1>
+<p>聚类不仅仅用于xyz的欧几里德几何坐标，不然也太low了吧。
+坐标只是一个数据项而己，对于一个数据，可以有几十个坐标。</p>
+<h1>距离的定义</h1>
+<p>距离的定义也不仅仅是欧几里德的距离定义$sqrt(x^2+y^2)$，可以根据自己的需要自定义距离。比如：</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_distance</span><span class="p">(</span><span class="n">obj1</span><span class="p">,</span> <span class="n">obj2</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">obj1</span><span class="o">.</span><span class="n">length</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">obj2</span><span class="o">.</span><span class="n">price</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="mf">0.3</span><span class="p">)</span>
+</pre></div>
+
+
+<p>在这个示例中，我把价格项乘了一个0.3的系数，用于表示价格并不是一个分类的关键因素。</p>
+<h1>结语</h1>
+<p>总体来说这是个很简单的模型，不过看来效果还算可以，也是我学习的第一个无监督的机器学习模型了。
+结合一下<code>numpy</code>，性能应该是不错的。</p>
+    </div>
+  </article>
+<hr>
+<div id="gitalk-container"></div>
+Gitalk要求repo读写权限，如有安全性顾虑，可在<a href="https://github.com/panhaoyu/panhaoyu.github.io/issues/80">Github Issues</a>直接写评论。
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: 'db554d9cb7dc56fc3aab',
+        clientSecret: 'd1fb48a2be5250e7d3cb3d28d84dfc1df6549bf3',
+        repo: 'panhaoyu.github.io',
+        owner: 'panhaoyu',
+        admin: ['panhaoyu'],
+        id: '80',
+        number: '80',
+        title: 'K近邻无监督聚类算法',
+        body: 'https://panhaoyu.github.io/p/80.html',
+        language: 'zh-CN',
+        perpage: '50',
+        distractionFreeMode: false,
+        pagerDirection: 'first',
+    });
+    gitalk.render('gitalk-container')
+</script>    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+<div class="row">
+  <ul class="col-sm-6 list-inline">
+    <li class="list-inline-item"><a href="http://blog.panhaoyu.top/archives.html">归档</a></li>
+    <li class="list-inline-item"><a href="http://blog.panhaoyu.top/categories.html">分类</a></li>
+  </ul>
+  <p class="col-sm-6 text-sm-right text-muted">
+    Generated by <a href="https://github.com/getpelican/pelican" target="_blank">Pelican</a>
+    / <a href="https://github.com/nairobilug/pelican-alchemy" target="_blank">&#x2728;</a>
+  </p>
+</div>    </div>
+  </footer>
+</body>
+
+</html>

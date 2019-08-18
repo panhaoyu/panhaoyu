@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="chinese (simplified)">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>  Python路径 | 大潘BLOG
+</title>
+  <link rel="canonical" href="http://blog.panhaoyu.top/pythonlu-jing.html">
+
+
+  <link rel="stylesheet" href="http://blog.panhaoyu.top/theme/css/bootstrap.min.css">
+  <link rel="stylesheet" href="http://blog.panhaoyu.top/theme/css/font-awesome.min.css">
+  <link rel="stylesheet" href="http://blog.panhaoyu.top/theme/css/pygments/default.min.css">
+  <link rel="stylesheet" href="http://blog.panhaoyu.top/theme/css/theme.css">
+
+  
+  <meta name="description" content="介绍Python中的路径。">
+
+
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+<div class="row">
+    <div class="col-sm-4">
+      <a href="http://blog.panhaoyu.top/">
+        <img class="img-fluid rounded" src=https://raw.githubusercontent.com/panhaoyu/storage1/master/assets/icons/head2.jpg alt="大潘BLOG">
+      </a>
+    </div>
+  <div class="col-sm-8">
+    <h1 class="title"><a href="http://blog.panhaoyu.top/">大潘BLOG</a></h1>
+      <p class="text-muted">用心感受生活，岩土人也可以浪漫</p>
+      <ul class="list-inline">
+            <li class="list-inline-item"><a href="http://blog.panhaoyu.top/category/lu-xing.html">旅行</a></li>
+            <li class="list-inline-item"><a href="http://blog.panhaoyu.top/category/ma-nong.html">码农</a></li>
+            <li class="list-inline-item"><a href="http://blog.panhaoyu.top/category/si-kao.html">思考</a></li>
+            <li class="list-inline-item"><a href="http://blog.panhaoyu.top/category/sui-bi.html">随笔</a></li>
+            <li class="list-inline-item"><a href="http://blog.panhaoyu.top/category/yan-tu.html">岩土</a></li>
+            <li class="list-inline-item"><a href="http://blog.panhaoyu.top/pages/guan-yu.html">关于</a></li>
+      </ul>
+  </div>
+</div>    </div>
+  </header>
+
+  <div class="main">
+    <div class="container">
+      <h1>  Python路径
+</h1>
+      <hr>
+  <article class="article">
+    <header>
+      <ul class="list-inline">
+        <li class="list-inline-item text-muted" title="2017-08-04T00:00:00+08:00">
+          <i class="fa fa-clock-o"></i>
+          周五 04 八月 2017
+        </li>
+        <li class="list-inline-item">
+          <i class="fa fa-folder-open-o"></i>
+          <a href="http://blog.panhaoyu.top/category/ma-nong.html">码农</a>
+        </li>
+      </ul>
+    </header>
+    <div class="content">
+      <h1>获取路径</h1>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>结果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>os.getcwd()</td>
+<td>运行程序时您所在的位置</td>
+</tr>
+<tr>
+<td>sys.path[0]</td>
+<td>程序入口文件所在的目录</td>
+</tr>
+<tr>
+<td>sys.argv[0]</td>
+<td>程序入口文件的文件名</td>
+</tr>
+<tr>
+<td><strong>file</strong></td>
+<td>执行这个代码的文件的路径</td>
+</tr>
+</tbody>
+</table>
+<h1>例子</h1>
+<h2>文件结构：</h2>
+<div class="highlight"><pre><span></span><span class="n">test</span>
+<span class="err">├──</span> <span class="n">main</span><span class="p">.</span><span class="n">py</span>
+<span class="err">└──</span> <span class="n">pkg</span>
+    <span class="err">└──</span> <span class="n">__init__</span><span class="p">.</span><span class="n">py</span>
+</pre></div>
+
+
+<p>main.py：</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pkkg</span>
+</pre></div>
+
+
+<p>pkg/<strong>init</strong>.py：</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;os.getcwd()&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;sys.path[0]&#39;</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;sys.argv[0]&#39;</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="s1">&#39;__file__&#39;</span><span class="p">,</span> <span class="vm">__file__</span><span class="p">)</span>
+</pre></div>
+
+
+<h2>执行：</h2>
+<p>在test的上一级目录，也就是tmp文件夹，在bash中运行：</p>
+<div class="highlight"><pre><span></span><span class="n">python3</span> <span class="nb">text</span><span class="o">/</span><span class="n">main</span><span class="p">.</span><span class="n">py</span>
+</pre></div>
+
+
+<h2>输出</h2>
+<div class="highlight"><pre><span></span><span class="n">os</span><span class="p">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">/</span><span class="n">tmp</span>
+<span class="n">sys</span><span class="p">.</span><span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">test</span>
+<span class="n">sys</span><span class="p">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="n">test</span><span class="o">/</span><span class="n">main</span><span class="p">.</span><span class="n">py</span>
+<span class="n">__file__</span> <span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">test</span><span class="o">/</span><span class="n">pkg</span><span class="o">/</span><span class="n">__init__</span><span class="p">.</span><span class="n">py</span>
+</pre></div>
+    </div>
+  </article>
+<hr>
+<div id="gitalk-container"></div>
+Gitalk要求repo读写权限，如有安全性顾虑，可在<a href="https://github.com/panhaoyu/panhaoyu.github.io/issues/29">Github Issues</a>直接写评论。
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: 'db554d9cb7dc56fc3aab',
+        clientSecret: 'd1fb48a2be5250e7d3cb3d28d84dfc1df6549bf3',
+        repo: 'panhaoyu.github.io',
+        owner: 'panhaoyu',
+        admin: ['panhaoyu'],
+        id: '29',
+        number: '29',
+        title: 'Python路径',
+        body: 'https://panhaoyu.github.io/p/29.html',
+        language: 'zh-CN',
+        perpage: '50',
+        distractionFreeMode: false,
+        pagerDirection: 'first',
+    });
+    gitalk.render('gitalk-container')
+</script>    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+<div class="row">
+  <ul class="col-sm-6 list-inline">
+    <li class="list-inline-item"><a href="http://blog.panhaoyu.top/archives.html">归档</a></li>
+    <li class="list-inline-item"><a href="http://blog.panhaoyu.top/categories.html">分类</a></li>
+  </ul>
+  <p class="col-sm-6 text-sm-right text-muted">
+    Generated by <a href="https://github.com/getpelican/pelican" target="_blank">Pelican</a>
+    / <a href="https://github.com/nairobilug/pelican-alchemy" target="_blank">&#x2728;</a>
+  </p>
+</div>    </div>
+  </footer>
+</body>
+
+</html>
