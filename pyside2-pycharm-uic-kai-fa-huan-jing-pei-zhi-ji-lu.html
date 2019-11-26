@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="chinese (simplified)">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>  PySide2 PyCharm UIC 开发环境配置记录 | 大潘BLOG
+</title>
+  <link rel="canonical" href="https://blog.panhaoyu.top/pyside2-pycharm-uic-kai-fa-huan-jing-pei-zhi-ji-lu.html">
+
+
+  <link rel="stylesheet" href="https://blog.panhaoyu.top/theme/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://blog.panhaoyu.top/theme/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://blog.panhaoyu.top/theme/css/pygments/default.min.css">
+  <link rel="stylesheet" href="https://blog.panhaoyu.top/theme/css/theme.css">
+
+  
+  <meta name="description" content="记录win10下的PySide2、PyCharm、UIC的环境搭建过程。">
+
+
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+<div class="row">
+    <div class="col-sm-4">
+      <a href="https://blog.panhaoyu.top/">
+        <img class="img-fluid rounded" src=https://raw.githubusercontent.com/panhaoyu/storage1/master/assets/icons/head2.jpg alt="大潘BLOG">
+      </a>
+    </div>
+  <div class="col-sm-8">
+    <h1 class="title"><a href="https://blog.panhaoyu.top/">大潘BLOG</a></h1>
+      <p class="text-muted">用心感受生活，岩土人也可以浪漫</p>
+      <ul class="list-inline">
+            <li class="list-inline-item"><a href="https://blog.panhaoyu.top/category/lu-xing.html">旅行</a></li>
+            <li class="list-inline-item"><a href="https://blog.panhaoyu.top/category/ma-nong.html">码农</a></li>
+            <li class="list-inline-item"><a href="https://blog.panhaoyu.top/category/si-kao.html">思考</a></li>
+            <li class="list-inline-item"><a href="https://blog.panhaoyu.top/category/sui-bi.html">随笔</a></li>
+            <li class="list-inline-item"><a href="https://blog.panhaoyu.top/category/yan-tu.html">岩土</a></li>
+            <li class="list-inline-item"><a href="https://blog.panhaoyu.top/pages/guan-yu.html">关于</a></li>
+      </ul>
+  </div>
+</div>    </div>
+  </header>
+
+  <div class="main">
+    <div class="container">
+      <h1>  PySide2 PyCharm UIC 开发环境配置记录
+</h1>
+      <hr>
+  <article class="article">
+    <header>
+      <ul class="list-inline">
+        <li class="list-inline-item text-muted" title="2019-11-26T00:00:00+08:00">
+          <i class="fa fa-clock-o"></i>
+          周二 26 十一月 2019
+        </li>
+        <li class="list-inline-item">
+          <i class="fa fa-folder-open-o"></i>
+          <a href="https://blog.panhaoyu.top/category/ma-nong.html">码农</a>
+        </li>
+      </ul>
+    </header>
+    <div class="content">
+      <h1>写在前面</h1>
+<p>最近想把以前写的pelican的一些脚本操作转化为界面，
+看起来舒服，也顺手复习一下PySide2的用法。</p>
+<p>网上相关的教程还不是很多，在此记录一下，方便后人，也方便自己查阅。</p>
+<h1>PySide、PySide2、PyQt、PyQt5</h1>
+<p>先简述一下这四个东西的区别。</p>
+<p>我们知道，Qt主要分为Qt4和Qt5，
+PySide和PyQt是Qt4的绑定，
+PySide2和PyQt5是Qt5的绑定。
+作为一个新项目，当然是用最新的库了。</p>
+<p>PySide是官方版，PyQt是一个小公司开发的，
+不过PyQt更成熟，资料也更多。
+网上关于PyQt5的资料数不胜数，
+很多是可以套用到PySide2上面的。
+我的这篇博文就是将其与Pycharm的工具链搬运到PySide2上。</p>
+<p>PySide的一个很重要的特点是可以闭源商用，
+而PyQt是GPL协议的。</p>
+<h1>安装PySide2</h1>
+<div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pyside2</span>
+</pre></div>
+
+
+<h1>HelloWorld</h1>
+<p>这是官网给出的Hello World。
+拿过来看一下。</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">PySide2</span> <span class="kn">import</span> <span class="n">QtWidgets</span><span class="p">,</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span>
+
+
+<span class="k">class</span> <span class="nc">MyWidget</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QWidget</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MyWidget</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hello</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Hello friend.&quot;</span><span class="p">,</span> <span class="s2">&quot;你好，世界。&quot;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">button</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QPushButton</span><span class="p">(</span><span class="s2">&quot;Click me&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="s2">&quot;Hello world.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">setAlignment</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">AlignCenter</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">button</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setLayout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">button</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">magic</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">magic</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hello</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+    <span class="n">widget</span> <span class="o">=</span> <span class="n">MyWidget</span><span class="p">()</span>
+    <span class="n">widget</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec_</span><span class="p">())</span>
+</pre></div>
+
+
+<p>执行结果如下。
+一切正常。</p>
+<p><a href="https://raw.githubusercontent.com/panhaoyu/storage2/master/码农/Pyside2/helloworld.png" target="_blank">
+<img src="https://raw.githubusercontent.com/panhaoyu/storage2/master/码农/Pyside2/helloworld.png" alt="helloworld" />
+</a></p>
+<h1>配置UiDesigner</h1>
+<p>相比于tkinter，PySide的一大功能就是可视化的UI编辑界面。</p>
+<p>我们的开发环境主要就是要配置两个工具：
+QtDesigner用于可视化绘制UI界面，
+UIC用于将QtDesigner生成的UI文件转换为Python代码。</p>
+<p>打开Pycharm中的设置项：
+File&gt;Settings&gt;Tools&gt;External Tools</p>
+<p>点击那个小+号，开始设置QtDesigner界面。</p>
+<p>关于Pycharm的External Tools和File Watcher，
+可以使用一系列的宏，
+就在右边的Insert Macro里面，有兴趣的可以自行翻翻。</p>
+<p><a href="https://raw.githubusercontent.com/panhaoyu/storage2/master/码农/Pyside2/QtDesigner配置图.png" target="_blank">
+<img src="https://raw.githubusercontent.com/panhaoyu/storage2/master/码农/Pyside2/QtDesigner配置图.png" alt="QtDesigner配置图" />
+</a></p>
+<p>各个参数如下：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Program</td>
+<td>$PyInterpreterDirectory$/Lib/site-packages/PySide2/designer.exe</td>
+</tr>
+<tr>
+<td>Arguments</td>
+<td>$FilePath$</td>
+</tr>
+<tr>
+<td>Working Directory</td>
+<td>$FileDir$</td>
+</tr>
+</tbody>
+</table>
+<p>然后我们可以打开QtDesigner设计一个简单的界面进行测试。</p>
+<p>在External Tools里面找到我们刚配置好的QtDesigner。</p>
+<p><a href="https://raw.githubusercontent.com/panhaoyu/storage2/master/码农/Pyside2/打开QtDesigner.png" target="_blank">
+<img src="https://raw.githubusercontent.com/panhaoyu/storage2/master/码农/Pyside2/打开QtDesigner.png" alt="打开QtDesigner" />
+</a></p>
+<p>设计一个简单的界面，保存为<code>ui_form.ui</code>，并关闭QtDesigner。</p>
+<p><a href="https://raw.githubusercontent.com/panhaoyu/storage2/master/码农/Pyside2/设计好的UI界面.png" target="_blank">
+<img src="https://raw.githubusercontent.com/panhaoyu/storage2/master/码农/Pyside2/设计好的UI界面.png" alt="设计好的UI界面" />
+</a></p>
+<p>现在我们的Pycharm文件管理器中出现了<code>ui_form.ui</code>。
+我们可以右键这个ui文件，同样选择External Tools里面的QtDesigner，
+就可以修改UI界面文件。</p>
+<h1>设置UIC</h1>
+<p>如何将UI文件引入我们的程序呢？
+首先我们需要将UI文件转化为<code>.py</code>文件，然后作为一个模块引入我们的项目。</p>
+<p>我们在这里找到File Watcher的设置项。</p>
+<p>File Watcher的作用是，在一个文件发生变化后，自动执行一个程序。
+在这里，我们需要设置的是，每当<code>.ui</code>文件发生变化，自动生成<code>.py</code>文件。</p>
+<p><a href="https://raw.githubusercontent.com/panhaoyu/storage2/master/码农/Pyside2/设置UIC的FileWatcher.png" target="_blank">
+<img src="https://raw.githubusercontent.com/panhaoyu/storage2/master/码农/Pyside2/设置UIC的FileWatcher.png" alt="设置UIC的FileWatcher" />
+</a></p>
+<p><a href="https://raw.githubusercontent.com/panhaoyu/storage2/master/码农/Pyside2/UIC的设置结果.png" target="_blank">
+<img src="https://raw.githubusercontent.com/panhaoyu/storage2/master/码农/Pyside2/UIC的设置结果.png" alt="UIC的设置结果" />
+</a></p>
+<p>各个配置项如下：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>File Type</td>
+<td>Qt UI Designer Form</td>
+</tr>
+<tr>
+<td>Scope</td>
+<td>Project Files</td>
+</tr>
+<tr>
+<td>Program</td>
+<td>$JDKPath$</td>
+</tr>
+<tr>
+<td>Arguments</td>
+<td>-m PySide2.scripts.uic $FilePath$ -o $FileNameWithoutExtension$.py</td>
+</tr>
+<tr>
+<td>Working Directory</td>
+<td>$FileDir$</td>
+</tr>
+</tbody>
+</table>
+<p>设置完后OK保存。</p>
+<p>现在，每当我们编辑一个<code>.ui</code>文件并保存后，
+会自动生成同名的<code>.py</code>文件。</p>
+<p>现在，我们随便修改一下之前的<code>ui_form.ui</code>，并保存。
+在Pycharm的文件管理器中出现了<code>ui_form.py</code>。</p>
+<h1>执行程序</h1>
+<p>我们需要写一小段程序引入这个界面。</p>
+<p>这就像是我们学C时候的<code>#include &lt;iostream&gt;</code>和<code>using namespace std</code>一样，
+一时半会不用改。</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">PySide2</span> <span class="kn">import</span> <span class="n">QtWidgets</span><span class="p">,</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtCore</span>
+<span class="kn">import</span> <span class="nn">ui_form</span>
+
+
+<span class="k">class</span> <span class="nc">MainWindow</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMainWindow</span><span class="p">,</span> <span class="n">ui_form</span><span class="o">.</span><span class="n">Ui_MainWindow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MainWindow</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">showMaximized</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+    <span class="n">main_window</span> <span class="o">=</span> <span class="n">MainWindow</span><span class="p">()</span>
+    <span class="n">main_window</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec_</span><span class="p">())</span>
+</pre></div>
+
+
+<p>执行这个文件。</p>
+<p><a href="https://raw.githubusercontent.com/panhaoyu/storage2/master/码农/Pyside2/可以运行的界面.png" target="_blank">
+<img src="https://raw.githubusercontent.com/panhaoyu/storage2/master/码农/Pyside2/可以运行的界面.png" alt="可以运行的界面" />
+</a></p>
+<p>执行成功。</p>
+<h1>绑定按键事件</h1>
+<p>Qt的事件通过信号与槽来绑定，
+PySide也是一样。
+如果不知道什么是槽的建议了解一下Qt的槽，
+网上资料很多，我就不赘述了。</p>
+<p>因为我不打算用PySide写什么大型GUI程序，
+因此直接将各种信号都指向MainWindow就可以了。
+这样我们在连接信号的时候可以省下不少事儿。</p>
+<p>在这里我为主窗口设置了三个槽，
+并分别绑定按键事件。</p>
+<p><a href="https://raw.githubusercontent.com/panhaoyu/storage2/master/码农/Pyside2/设置信号槽.png" target="_blank">
+<img src="https://raw.githubusercontent.com/panhaoyu/storage2/master/码农/Pyside2/设置信号槽.png" alt="设置信号槽" />
+</a></p>
+<p>现在我们需要在我们的代码中手动写出这几个槽。
+因为我们都是直接绑在主窗口上的，
+因此我们可以直接在主窗口的类上写上这几个方法。</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">PySide2</span> <span class="kn">import</span> <span class="n">QtWidgets</span><span class="p">,</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtCore</span>
+<span class="kn">import</span> <span class="nn">ui_form</span>
+
+
+<span class="k">class</span> <span class="nc">MainWindow</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMainWindow</span><span class="p">,</span> <span class="n">ui_form</span><span class="o">.</span><span class="n">Ui_MainWindow</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MainWindow</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">showMaximized</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">create_article</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Create article.&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">create_blog</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Create blog.&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">upload_blog</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Upload blog.&quot;</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+    <span class="n">main_window</span> <span class="o">=</span> <span class="n">MainWindow</span><span class="p">()</span>
+    <span class="n">main_window</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec_</span><span class="p">())</span>
+</pre></div>
+
+
+<p>执行新的程序。</p>
+<p><a href="https://raw.githubusercontent.com/panhaoyu/storage2/master/码农/Pyside2/信号与槽的执行结果.png" target="_blank">
+<img src="https://raw.githubusercontent.com/panhaoyu/storage2/master/码农/Pyside2/信号与槽的执行结果.png" alt="信号与槽的执行结果" />
+</a></p>
+<h1>结语</h1>
+<p>本次教程到此结束。</p>
+<p>我一向是不建议采用Python写桌面程序的，
+但是为什么这次又用上PySide了呢。
+我一向认为，用合适的工具做合适的事情才能达到事半功倍的效果。
+我曾经是Python的狂热信仰者，
+我深信Python可以做任何事情。
+它确实可以做到，但有些时候就是做不好。
+比如前些日子我对一个工业相机做了二次开发，
+厂商提供了Python接口，但质量比起C#的接口差了好多，
+那我为什么还要坚持用Python呢。
+我用了两三天的时间学了C#，以及它的MVVM设计模式。
+现在，我不仅更好地完成了任务，也多了一项技能。
+何乐不为呢？
+这一次，我是要为我自已个人使用的博客生成器写一个界面。
+首先，是自己用的，不涉及打包和依赖库的问题，
+这用Python写起来就更放心大胆。
+其次，我之前的生成器用的是基于pelican的各种配置，
+难道我为了一个GUI界面就要把我的程序由Python改成C#吗，
+显然这不划算的。
+两个小时搞定这篇教程，我觉得不算亏。</p>
+<p>就到这里了，有问题欢迎留言。</p>
+    </div>
+  </article>
+<hr>
+<div id="gitalk-container"></div>
+Gitalk要求repo读写权限，如有安全性顾虑，可在<a href="https://github.com/panhaoyu/panhaoyu.github.io/issues/91">Github Issues</a>直接写评论。
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: 'db554d9cb7dc56fc3aab',
+        clientSecret: 'd1fb48a2be5250e7d3cb3d28d84dfc1df6549bf3',
+        repo: 'panhaoyu.github.io',
+        owner: 'panhaoyu',
+        admin: ['panhaoyu'],
+        id: '91',
+        number: '91',
+        title: 'PySide2 PyCharm UIC 开发环境配置记录',
+        body: 'https://panhaoyu.github.io/p/91.html',
+        language: 'zh-CN',
+        perpage: '50',
+        distractionFreeMode: false,
+        pagerDirection: 'first',
+    });
+    gitalk.render('gitalk-container')
+</script>    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+<div class="row">
+  <ul class="col-sm-6 list-inline">
+    <li class="list-inline-item"><a href="https://blog.panhaoyu.top/archives.html">归档</a></li>
+    <li class="list-inline-item"><a href="https://blog.panhaoyu.top/categories.html">分类</a></li>
+  </ul>
+  <p class="col-sm-6 text-sm-right text-muted">
+    Generated by <a href="https://github.com/getpelican/pelican" target="_blank">Pelican</a>
+    / <a href="https://github.com/nairobilug/pelican-alchemy" target="_blank">&#x2728;</a>
+  </p>
+</div>    </div>
+  </footer>
+</body>
+
+</html>
