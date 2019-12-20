@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="chinese (simplified)">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>  运行时生成python的pyi文件 | 大潘BLOG
+</title>
+  <link rel="canonical" href="https://blog.panhaoyu.top/yun-xing-shi-sheng-cheng-pythonde-pyiwen-jian.html">
+
+
+  <link rel="stylesheet" href="https://blog.panhaoyu.top/theme/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://blog.panhaoyu.top/theme/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://blog.panhaoyu.top/theme/css/pygments/default.min.css">
+  <link rel="stylesheet" href="https://blog.panhaoyu.top/theme/css/theme.css">
+
+  
+  <meta name="description" content="如果一个模块可以被导入，就可以在运行时生成它的pyi概述文件。">
+
+
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+<div class="row">
+    <div class="col-sm-4">
+      <a href="https://blog.panhaoyu.top/">
+        <img class="img-fluid rounded" src=https://raw.githubusercontent.com/panhaoyu/storage1/master/assets/icons/head2.jpg alt="大潘BLOG">
+      </a>
+    </div>
+  <div class="col-sm-8">
+    <h1 class="title"><a href="https://blog.panhaoyu.top/">大潘BLOG</a></h1>
+      <p class="text-muted">用心感受生活，岩土人也可以浪漫</p>
+      <ul class="list-inline">
+            <li class="list-inline-item"><a href="https://blog.panhaoyu.top/category/lu-xing.html">旅行</a></li>
+            <li class="list-inline-item"><a href="https://blog.panhaoyu.top/category/ma-nong.html">码农</a></li>
+            <li class="list-inline-item"><a href="https://blog.panhaoyu.top/category/si-kao.html">思考</a></li>
+            <li class="list-inline-item"><a href="https://blog.panhaoyu.top/category/sui-bi.html">随笔</a></li>
+            <li class="list-inline-item"><a href="https://blog.panhaoyu.top/category/yan-tu.html">岩土</a></li>
+            <li class="list-inline-item"><a href="https://blog.panhaoyu.top/pages/guan-yu.html">关于</a></li>
+      </ul>
+  </div>
+</div>    </div>
+  </header>
+
+  <div class="main">
+    <div class="container">
+      <h1>  运行时生成python的pyi文件
+</h1>
+      <hr>
+  <article class="article">
+    <header>
+      <ul class="list-inline">
+        <li class="list-inline-item text-muted" title="2019-12-20T00:00:00+08:00">
+          <i class="fa fa-clock-o"></i>
+          周五 20 十二月 2019
+        </li>
+        <li class="list-inline-item">
+          <i class="fa fa-folder-open-o"></i>
+          <a href="https://blog.panhaoyu.top/category/ma-nong.html">码农</a>
+        </li>
+      </ul>
+    </header>
+    <div class="content">
+      <h1>需求</h1>
+<p>Itasca家的程序支持Python脚本，
+但它自家的编辑器实在是难用。
+作为一个老python狗，我选择采用pycharm进行开发。
+但是在开发过程中，因为itasca提供的一个联接PFC与python的模块
+<code>itasca</code>是一个内置<code>builtin</code>模块，
+也就是只有在PFC中我才能导入这个模块。
+这就使得pycharm的代码补全无从下手。
+本文就是要解决这个问题。</p>
+<h1>代码</h1>
+<p>时间紧，直接上代码。</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">itasca</span>
+<span class="kn">import</span> <span class="nn">mypy.stubgenc</span>
+
+<span class="n">result_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="s1">&#39;main.py&#39;</span><span class="p">),</span> <span class="sa">r</span><span class="s1">&#39;D:/stub/itasca.pyi&#39;</span><span class="p">)</span>
+<span class="n">mypy</span><span class="o">.</span><span class="n">stubgenc</span><span class="o">.</span><span class="n">generate_stub_for_c_module</span><span class="p">(</span><span class="s1">&#39;itasca&#39;</span><span class="p">,</span> <span class="n">result_path</span><span class="p">)</span>
+</pre></div>
+
+
+<p>将生成的<code>itasca.pyi</code>放在开发目录下，或者放在依赖库下，现在就支持补全了。</p>
+    </div>
+  </article>
+<hr>
+<div id="gitalk-container"></div>
+Gitalk要求repo读写权限，如有安全性顾虑，可在<a href="https://github.com/panhaoyu/panhaoyu.github.io/issues/94">Github Issues</a>直接写评论。
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script>
+    var gitalk = new Gitalk({
+        clientID: 'db554d9cb7dc56fc3aab',
+        clientSecret: 'd1fb48a2be5250e7d3cb3d28d84dfc1df6549bf3',
+        repo: 'panhaoyu.github.io',
+        owner: 'panhaoyu',
+        admin: ['panhaoyu'],
+        id: '94',
+        number: '94',
+        title: '运行时生成python的pyi文件',
+        body: 'https://panhaoyu.github.io/p/94.html',
+        language: 'zh-CN',
+        perpage: '50',
+        distractionFreeMode: false,
+        pagerDirection: 'first',
+    });
+    gitalk.render('gitalk-container')
+</script>    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+<div class="row">
+  <ul class="col-sm-6 list-inline">
+    <li class="list-inline-item"><a href="https://blog.panhaoyu.top/archives.html">归档</a></li>
+    <li class="list-inline-item"><a href="https://blog.panhaoyu.top/categories.html">分类</a></li>
+  </ul>
+  <p class="col-sm-6 text-sm-right text-muted">
+    Generated by <a href="https://github.com/getpelican/pelican" target="_blank">Pelican</a>
+    / <a href="https://github.com/nairobilug/pelican-alchemy" target="_blank">&#x2728;</a>
+  </p>
+</div>    </div>
+  </footer>
+</body>
+
+</html>
