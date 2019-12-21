@@ -86,6 +86,18 @@
 
 
 <p>将生成的<code>itasca.pyi</code>放在开发目录下，或者放在依赖库下，现在就支持补全了。</p>
+<h1>一些问题</h1>
+<p>这个方法只能针对某一个模块生成<code>.pyi</code>文件。
+像<code>itasca</code>家的软件，这个<code>itasca</code>下面还有好多子模块，<code>mypy</code>是没法操作的。
+我尝试了遍历所有的包以生成<code>.pyi</code>文件，
+但是在使用<code>mypy</code>生成时，只支持使用模块名进行生成，
+而不能使用模块对象进行生成。
+但是<code>itasca</code>的子模块是没法直接导入的。
+因此我修改了<code>mypy.stubgenc</code>模块，调整了一行，使其可以接受模块对象以生成。</p>
+<p>详细代码我上传到了我的<a href="https://github.com/panhaoyu/pyi_generator" target="_blank">Github代码库</a>，
+有需要的朋友可以参考一下。</p>
+<p>里面还有好多问题，比如mypy不支持写入<code>__doc__</code>文档字符串，有时间再修复吧，
+现在这样子支持补全已经暂时够用了。</p>
     </div>
   </article>
 <hr>
